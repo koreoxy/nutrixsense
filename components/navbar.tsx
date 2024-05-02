@@ -1,15 +1,15 @@
+import { CircleUserRound, Moon } from "lucide-react";
+
 export const Navbar = () => {
   return (
-    <nav className="bg-gray-800 p-4 absolute top-0 w-full z-10">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white font-bold text-xl">Logo</div>
+    <nav className="p-4 absolute top-0 bg-white w-full">
+      <div className="relative mx-auto flex justify-between">
+        <div>
+          <CircleUserRound />
+        </div>
+        <div className="font-bold text-xl">Home</div>
         <div className="">
-          <a href="#" className="text-white mr-4">
-            Home
-          </a>
-          <a href="#" className="text-white mr-4">
-            About
-          </a>
+          <Moon />
         </div>
       </div>
     </nav>

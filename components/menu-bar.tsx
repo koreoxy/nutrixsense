@@ -1,20 +1,38 @@
+import {
+  AvatarIcon,
+  HomeIcon,
+  PlusCircledIcon,
+  PlusIcon,
+} from "@radix-ui/react-icons";
+import {
+  BookPlus,
+  CircleUser,
+  Home,
+  Plus,
+  PlusCircleIcon,
+  ScanLine,
+} from "lucide-react";
+
 export const MenuBar = () => {
   return (
-    <div className="bg-gray-800 p-4 absolute bottom-0 w-full z-10">
-      <div className="container mx-auto flex justify-center">
-        <a href="#" className="text-white mr-4">
-          Item 1
-        </a>
-        <a href="#" className="text-white mr-4">
-          Item 2
-        </a>
+    <div className="bg-white p-4 absolute bottom-0 w-full border rounded-t-xl shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+      <div className=" mx-auto flex justify-between items-center">
+        <div className="">
+          <Home />
+        </div>
+        <div>
+          <ScanLine />
+        </div>
+        <div className="bg-black rounded-full px-10">
+          <Plus className="text-white" size={30} />
+        </div>
 
-        <a href="#" className="text-white mr-4">
-          Item 3
-        </a>
-        <a href="#" className="text-white">
-          Item 4
-        </a>
+        <div className="">
+          <BookPlus />
+        </div>
+        <div className="">
+          <CircleUser />
+        </div>
       </div>
     </div>
   );
