@@ -1,6 +1,13 @@
+"use client";
+
+import axios from "axios";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 export default function Home() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
   return (
     <div className="flex-1 items-start overflow-y-auto flex justify-center my-16 bg-white">
       <div className="p-4">
@@ -15,9 +22,7 @@ export default function Home() {
           />
         </section>
 
-        <section className="mt-10">
-          <h1>HELLO</h1>
-        </section>
+        <section className="mt-10"></section>
       </div>
     </div>
   );
