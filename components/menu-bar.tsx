@@ -24,9 +24,9 @@ export const MenuBar = () => {
         <Link href="/detect">
           <ScanLine />
         </Link>
-        <div className="bg-black rounded-full px-10">
+        <Link href="/image-detect" className="bg-black rounded-full px-10">
           <Plus className="text-white" size={30} />
-        </div>
+        </Link>
 
         <div className="">
           <BookPlus />

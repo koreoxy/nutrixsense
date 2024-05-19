@@ -1,8 +1,9 @@
 "use client";
 
-import axios from "axios";
+import { LoginButtton } from "@/components/auth/login-button";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -22,7 +23,13 @@ export default function Home() {
           />
         </section>
 
-        <section className="mt-10"></section>
+        <section className="mt-10">
+          <LoginButtton>
+            <Button variant="secondary" size="lg">
+              Login
+            </Button>
+          </LoginButtton>
+        </section>
       </div>
     </div>
   );
