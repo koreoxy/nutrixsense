@@ -54,6 +54,8 @@ export const LoginForm = () => {
       headerLabel="welcome back"
       backButtonLabel="Tidak Memiliki Akun ?"
       backButtonHref="/auth/register"
+      buttonHomeHref="/"
+      buttonHomeLabel="Back to Home"
       showSocial
     >
       <Form {...form}>

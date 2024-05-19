@@ -55,6 +55,8 @@ export const RegisterForm = () => {
       headerLabel="Daftar akun anda disini"
       backButtonLabel="Sudah memiliki Akun ?"
       backButtonHref="/auth/login"
+      buttonHomeHref="/"
+      buttonHomeLabel="Back to Home"
       showSocial
     >
       <Form {...form}>
