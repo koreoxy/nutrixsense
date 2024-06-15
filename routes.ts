@@ -6,7 +6,7 @@ export const publicRoutes = ["/"];
 /**
  *Route yang hanya bisa diakses user yang telah login
  */
-export const authRoutes = ["/auth/login", "/auth/register"];
+export const authRoutes = ["/auth/login", "/auth/register", "/auth/error"];
 
 /**
  *Route untuk auth Api
