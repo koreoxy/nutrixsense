@@ -1,5 +1,6 @@
 import React, { useState, useRef, MutableRefObject } from "react";
 import { Webcam } from "@/utils/yolov8/webcam";
+import { Button } from "@/components/ui/button";
 
 interface ButtonHandlerProps {
   imageRef: MutableRefObject<HTMLImageElement | null>;
@@ -48,7 +49,7 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
   };
 
   return (
-    <div className="btn-container flex gap-2 mt-2">
+    <div className="btn-container flex flex-col gap-2 mt-2">
       {/* Image Handler */}
       <input
         type="file"
@@ -64,7 +65,7 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
         }}
         ref={inputImageRef}
       />
-      <button
+      <Button
         onClick={() => {
           // if not streaming
           if (streaming === null) inputImageRef.current?.click();
@@ -77,7 +78,7 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
         }}
       >
         {streaming === "image" ? "Close" : "Open"} Image
-      </button>
+      </Button>
 
       {/* Video Handler */}
       <input
@@ -96,7 +97,7 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
         }}
         ref={inputVideoRef}
       />
-      <button
+      <Button
         onClick={() => {
           // if not streaming
           if (streaming === null || streaming === "image")
@@ -110,10 +111,10 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
         }}
       >
         {streaming === "video" ? "Close" : "Open"} Video
-      </button>
+      </Button>
 
       {/* Webcam Handler */}
-      <button
+      <Button
         onClick={() => {
           // if not streaming
           if (streaming === null || streaming === "image") {
@@ -139,7 +140,7 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
         }}
       >
         {streaming === "camera" ? "Close" : "Open"} Webcam
-      </button>
+      </Button>
     </div>
   );
 };

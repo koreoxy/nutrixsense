@@ -72,7 +72,7 @@ const ImageDetect: React.FC = () => {
   return (
     <>
       <Navbar title="Image Detect" />
-      <div className="flex flex-col overflow-y-auto my-16 bg-white h-full">
+      <div className="flex flex-col overflow-y-auto mb-16 bg-white dark:bg-background h-full">
         <div className="p-4">
           {loading.loading ? (
             <Loader>

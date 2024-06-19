@@ -7,7 +7,7 @@ interface LoaderProps extends HTMLAttributes<HTMLDivElement> {
 
 const Loader: React.FC<LoaderProps> = (props) => {
   return (
-    <div className="mt-40 flex justify-center items-center">
+    <div className="flex flex-col overflow-y-auto my-16 bg-white text-black dark:text-white dark:bg-background h-full mx-auto justify-center items-center">
       <div className="loader" {...props}>
         <p>{props.children}</p>
       </div>
