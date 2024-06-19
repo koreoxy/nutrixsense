@@ -2,18 +2,14 @@
 
 import { LoginButtton } from "@/components/auth/login-button";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/navbar";
 import { MenuBar } from "@/components/menu-bar";
 
 export default function Home() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
   return (
     <>
-      <Navbar />
+      <Navbar title="Home" />
       <div className="flex-1 items-start overflow-y-auto flex justify-center my-16 bg-white">
         <div className="p-4">
           <section className="mb-36">
@@ -33,6 +29,23 @@ export default function Home() {
                 Login
               </Button>
             </LoginButtton>
+          </section>
+
+          <section>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+              reprehenderit voluptate perspiciatis alias omnis consequuntur?
+              Tempore facere in aperiam, dolorum culpa ut sapiente minima
+              itaque. Maxime, explicabo doloribus. Dolores, recusandae?
+            </p>
+          </section>
+          <section>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+              reprehenderit voluptate perspiciatis alias omnis consequuntur?
+              Tempore facere in aperiam, dolorum culpa ut sapiente minima
+              itaque. Maxime, explicabo doloribus. Dolores, recusandae?
+            </p>
           </section>
         </div>
       </div>
