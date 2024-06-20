@@ -8,7 +8,7 @@ interface LoginButtonProps {
   asChild?: boolean;
 }
 
-export const LoginButtton = ({
+export const LoginButton = ({
   children,
   mode = "redirect",
   asChild,

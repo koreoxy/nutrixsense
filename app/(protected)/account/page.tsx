@@ -1,31 +1,27 @@
-import { auth, signOut } from "@/auth";
-import { MenuBar } from "@/components/menu-bar";
-import { Navbar } from "@/components/navbar";
-import { Button } from "@/components/ui/button";
+"use client";
 
-const AccountPage = async () => {
-  const session = await auth();
+import { Button } from "@/components/ui/button";
+import { UserInfo } from "@/components/user-info";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { signOut } from "next-auth/react";
+
+const AccountPage = () => {
+  const user = useCurrentUser();
+
+  const onClick = () => {
+    signOut();
+  };
   return (
     <>
-      <Navbar title="Account" />
       <div className="flex flex-col overflow-y-auto mb-16 bg-white dark:bg-background h-full">
         <div className="flex flex-col p-5">
-          <span> {JSON.stringify(session)}</span>
-
-          <form
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
-          >
-            <Button variant="destructive" type="submit">
-              Sign Out
-            </Button>
-          </form>
+          {/* {user ? <span> {JSON.stringify(user)}</span> : <div>Loading...</div>} */}
+          <UserInfo user={user} label="Info Account" />
+          <Button onClick={onClick} variant="destructive" type="submit">
+            Logout
+          </Button>
         </div>
       </div>
-
-      <MenuBar />
     </>
   );
 };

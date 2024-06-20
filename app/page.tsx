@@ -1,8 +1,6 @@
 "use client";
 
-import { LoginButtton } from "@/components/auth/login-button";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/navbar";
 import { MenuBar } from "@/components/menu-bar";
 
@@ -26,14 +24,6 @@ export default function Home() {
           </section>
 
           <section className="mt-52">
-            <LoginButtton>
-              <Button variant="secondary" size="lg">
-                Login
-              </Button>
-            </LoginButtton>
-          </section>
-
-          <section>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
               reprehenderit voluptate perspiciatis alias omnis consequuntur?
