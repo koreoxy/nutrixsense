@@ -1,4 +1,4 @@
-"use client ";
+"use client";
 
 import {
   DropdownMenu,
@@ -6,15 +6,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { FaUser } from "react-icons/fa";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { ExitIcon } from "@radix-ui/react-icons";
+import { Accessibility } from "lucide-react";
+import { useCurrentRole } from "@/hooks/use-current-role";
+import Link from "next/link";
 
 export const UserButton = () => {
   const user = useCurrentUser();
+  const role = useCurrentRole();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -26,12 +30,24 @@ export const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start">
-        <LogoutButton>
+        {role === "ADMIN" ? (
           <DropdownMenuItem>
-            <ExitIcon className="h-4 w-4 mr-2" />
-            Logout
+            <Link href="/admin" className="flex">
+              <Accessibility className="h-4 w-4 mr-2" />
+              <span>Admin</span>
+            </Link>
           </DropdownMenuItem>
-        </LogoutButton>
+        ) : (
+          <></>
+        )}
+        <DropdownMenuItem>
+          <LogoutButton>
+            <div className="flex">
+              <ExitIcon className="h-4 w-4 mr-2" />
+              Logout
+            </div>
+          </LogoutButton>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

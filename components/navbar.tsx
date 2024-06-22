@@ -12,6 +12,7 @@ interface NavbarProps {
 
 export const Navbar = ({ title }: NavbarProps) => {
   const user = useCurrentUser();
+
   return (
     <nav className="p-4 bg-white dark:bg-background w-full border">
       <div className="mx-auto flex items-center justify-between">
