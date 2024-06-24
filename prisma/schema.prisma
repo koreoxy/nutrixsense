@@ -31,7 +31,7 @@ model User {
   password      String?
   role          UserRole   @default(USER)
   accounts      Account[]
-  foods         Foods[]
+  saveFoods     SaveFood[]
 }
 
 model Account {
@@ -62,17 +62,44 @@ model PasswordResetToken {
   @@unique([email, token])
 }
 
-model Foods {
-  id              String   @id @default(cuid())
-  userId          String
-  foodName        String
-  calories        Float
-  protein         Float
-  fat             Float
-  carbohydrates   Float
-  detection_time  DateTime
-  image_path      String
-  user            User     @relation(fields: [userId], references: [id])
+// model Foods {
+//   id              String   @id @default(cuid())
+//   userId          String
+//   foodName        String
+//   calories        Float
+//   protein         Float
+//   fat             Float
+//   carbohydrates   Float
+//   detection_time  DateTime
+//   image_path      String
+//   user            User     @relation(fields: [userId], references: [id])
 
-  @@index([userId])
+//   @@index([userId])
+// }
+
+
+model Food {
+  id                  String @id @default(uuid())
+  name                String
+  description         String
+  calories            Int?
+  protein             Int?
+  fat                 Int?
+  carbohydrates       Int?
+  imagePath           String
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  saveFoods     SaveFood[]
+}
+
+model SaveFood{
+  id                  String @id @default(uuid())
+  totalFoodNutrition  Int
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  userId              String
+  foodId              String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  food Food @relation(fields: [foodId], references: [id], onDelete: Restrict)
 }

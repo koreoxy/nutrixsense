@@ -1,20 +1,11 @@
-import FoodTable from "@/components/admin/foods-table";
-import { RoleGate } from "@/components/auth/role-gate";
-import { FormSuccess } from "@/components/form-success";
-import { Navbar } from "@/components/navbar";
-import { UserRole } from "@prisma/client";
+import { DashboardCard } from "@/components/admin/dashboard-card";
 
 const AdminPage = () => {
   return (
-    <div>
-      <Navbar title="Admin" />
-      <RoleGate allowedRole={UserRole.ADMIN}>
-        <FormSuccess message="Anda mempunyai Akses !" />
-      </RoleGate>
-      <div>
-        <h1>Update user</h1>
-        <FoodTable />
-      </div>
+    <div className="flex flex-col mt-5 p-4 space-y-4">
+      <h1 className="text-center font-bold">Dashboard</h1>
+      <DashboardCard title="Foods" subTitle="fodsada" body="teasds" />
+      <DashboardCard title="Users" subTitle="fodsada" body="teasds" />
     </div>
   );
 };

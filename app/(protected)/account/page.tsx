@@ -20,20 +20,11 @@ import {
   FormControl,
   FormItem,
   FormLabel,
-  FormDescription,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { FormSuccess } from "@/components/form-success";
 import { FormError } from "@/components/form-error";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { UserRole } from "@prisma/client";
 
 const AccountPage = () => {
   const user = useCurrentUser();
@@ -176,7 +167,8 @@ const AccountPage = () => {
                         />
                       </>
                     )}
-                    <FormField
+
+                    {/* <FormField
                       control={form.control}
                       name="role"
                       render={({ field }) => (
@@ -204,7 +196,7 @@ const AccountPage = () => {
                           <FormMessage />
                         </FormItem>
                       )}
-                    />
+                    /> */}
                   </div>
                   <FormError message={error} />
                   <FormSuccess message={success} />
