@@ -19,9 +19,9 @@ const addSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   calories: z.coerce.number().int().min(1),
-  protein: z.coerce.number().int().min(1),
-  fat: z.coerce.number().int().min(1),
-  carbohydrates: z.coerce.number().int().min(1),
+  protein: z.coerce.number().positive().min(0),
+  fat: z.coerce.number().positive().min(0),
+  carbohydrates: z.coerce.number().positive().min(0),
   image: imageSchema,
 });
 

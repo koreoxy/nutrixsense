@@ -1,10 +1,13 @@
-"use client";
-
 import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import { MenuBar } from "@/components/menu-bar";
+import { getNewestFoods } from "@/data/food";
 
-export default function Home() {
+export default async function Home() {
+  const foods = await getNewestFoods();
+
+  console.log(foods);
+
   return (
     <>
       <Navbar title="Home" />

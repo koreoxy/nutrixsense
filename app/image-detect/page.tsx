@@ -9,6 +9,8 @@ import { detect, detectVideo } from "@/utils/yolov8/detect";
 import { Navbar } from "@/components/navbar";
 import { MenuBar } from "@/components/menu-bar";
 
+import DetectionResults from "@/components/detect/detection-result";
+
 interface LoadingState {
   loading: boolean;
   progress: number;
@@ -25,6 +27,10 @@ interface DetectionResult {
 }
 
 const ImageDetect: React.FC = () => {
+  const clearDetections = () => {
+    setDetections([]); // Mengosongkan state detections
+  };
+
   const [loading, setLoading] = useState<LoadingState>({
     loading: true,
     progress: 0,
@@ -73,84 +79,73 @@ const ImageDetect: React.FC = () => {
     <>
       <Navbar title="Image Detect" />
       <div className="flex flex-col overflow-y-auto mb-16 bg-white dark:bg-background h-full">
-        <div className="p-4">
+        <div>
           {loading.loading ? (
             <Loader>
               Loading model... {(loading.progress * 100).toFixed(2)}%
             </Loader>
           ) : (
             <>
-              <div className="text-center mb-2">
-                <h1 className="font-bold text-lg">📷 Detect Your Food</h1>
+              <div className="p-4">
+                <div className="text-center mb-2">
+                  <h1 className="font-bold text-lg">📷 Detect Your Food</h1>
+                </div>
+
+                <div className="content">
+                  <img
+                    src="#"
+                    ref={imageRef}
+                    onLoad={() =>
+                      detect(
+                        imageRef.current as HTMLImageElement,
+                        model,
+                        canvasRef.current as HTMLCanvasElement,
+                        setDetections
+                      )
+                    }
+                  />
+                  <video
+                    autoPlay
+                    muted
+                    ref={cameraRef}
+                    onPlay={() =>
+                      detectVideo(
+                        cameraRef.current as HTMLVideoElement,
+                        model,
+                        canvasRef.current as HTMLCanvasElement,
+                        setDetections
+                      )
+                    }
+                  />
+                  <video
+                    autoPlay
+                    muted
+                    ref={videoRef}
+                    onPlay={() =>
+                      detectVideo(
+                        videoRef.current as HTMLVideoElement,
+                        model,
+                        canvasRef.current as HTMLCanvasElement,
+                        setDetections
+                      )
+                    }
+                  />
+                  <canvas
+                    width={model.inputShape[1]}
+                    height={model.inputShape[2]}
+                    ref={canvasRef}
+                  />
+                </div>
+
+                <ButtonHandler
+                  imageRef={imageRef as MutableRefObject<HTMLImageElement>}
+                  cameraRef={cameraRef as MutableRefObject<HTMLVideoElement>}
+                  videoRef={videoRef as MutableRefObject<HTMLVideoElement>}
+                  clearDetections={clearDetections}
+                />
               </div>
 
-              <div className="content">
-                <img
-                  src="#"
-                  ref={imageRef}
-                  onLoad={() =>
-                    detect(
-                      imageRef.current as HTMLImageElement,
-                      model,
-                      canvasRef.current as HTMLCanvasElement,
-                      setDetections
-                    )
-                  }
-                />
-                <video
-                  autoPlay
-                  muted
-                  ref={cameraRef}
-                  onPlay={() =>
-                    detectVideo(
-                      cameraRef.current as HTMLVideoElement,
-                      model,
-                      canvasRef.current as HTMLCanvasElement,
-                      setDetections
-                    )
-                  }
-                />
-                <video
-                  autoPlay
-                  muted
-                  ref={videoRef}
-                  onPlay={() =>
-                    detectVideo(
-                      videoRef.current as HTMLVideoElement,
-                      model,
-                      canvasRef.current as HTMLCanvasElement,
-                      setDetections
-                    )
-                  }
-                />
-                <canvas
-                  width={model.inputShape[1]}
-                  height={model.inputShape[2]}
-                  ref={canvasRef}
-                />
-              </div>
-
-              <ButtonHandler
-                imageRef={imageRef as MutableRefObject<HTMLImageElement>}
-                cameraRef={cameraRef as MutableRefObject<HTMLVideoElement>}
-                videoRef={videoRef as MutableRefObject<HTMLVideoElement>}
-              />
-
-              <section className="mt-2">
-                {detections.length > 0 && (
-                  <div className="detection-results">
-                    <h2 className="font-bold text-lg">Hasil Deteksi : </h2>
-                    <ul>
-                      {detections.map((detection, index) => (
-                        <li key={index}>
-                          {detection.className}:{" "}
-                          {(detection.score * 100).toFixed(2)}%
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </section>
+              <DetectionResults detections={detections} />
             </>
           )}
         </div>

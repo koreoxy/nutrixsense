@@ -14,7 +14,6 @@ export function FoodForm({ food }: { food?: Food | null }) {
     food == null ? addFood : updateFood.bind(null, food.id),
     {}
   );
-  // const [calories, setCalories] = useState<number | undefined>(food?.calories);
   const { pending } = useFormStatus();
 
   return (
@@ -63,8 +62,6 @@ export function FoodForm({ food }: { food?: Food | null }) {
           id="calories"
           name="calories"
           defaultValue={food?.calories || ""}
-          // value={calories}
-          // onChange={(e) => setCalories(Number(e.target.value) || undefined)}
         />
         <div>
           <p
@@ -80,10 +77,12 @@ export function FoodForm({ food }: { food?: Food | null }) {
       <div className="space-y-2">
         <Label htmlFor="protein">Protein</Label>
         <Input
-          type="number"
+          type="text"
           id="protein"
           name="protein"
           defaultValue={food?.protein || ""}
+          pattern="^\d*\.?\d*$"
+          title="Please enter a valid float number"
         />
         <div>
           <p
@@ -99,10 +98,12 @@ export function FoodForm({ food }: { food?: Food | null }) {
       <div className="space-y-2">
         <Label htmlFor="fat">Fat</Label>
         <Input
-          type="number"
+          type="text"
           id="fat"
           name="fat"
           defaultValue={food?.fat || ""}
+          pattern="^\d*\.?\d*$"
+          title="Please enter a valid float number"
         />
         <div>
           <p
@@ -118,10 +119,12 @@ export function FoodForm({ food }: { food?: Food | null }) {
       <div className="space-y-2">
         <Label htmlFor="carbohydrates">Carbohydrates</Label>
         <Input
-          type="number"
+          type="text"
           id="carbohydrates"
           name="carbohydrates"
           defaultValue={food?.carbohydrates || ""}
+          pattern="^\d*\.?\d*$"
+          title="Please enter a valid float number"
         />
         <div>
           <p

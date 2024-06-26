@@ -28,3 +28,33 @@ export const getFoodById = async (id: string) => {
     return null;
   }
 };
+
+export const getNewestFoods = async () => {
+  return db.food.findMany({
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      calories: true,
+      protein: true,
+      fat: true,
+      carbohydrates: true,
+    },
+    orderBy: { name: "desc" },
+    take: 6,
+  });
+};
+
+export const getAllFood = async () => {
+  return db.food.findMany({
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      calories: true,
+      protein: true,
+      fat: true,
+      carbohydrates: true,
+    },
+  });
+};
