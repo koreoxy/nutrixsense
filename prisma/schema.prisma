@@ -90,17 +90,31 @@ model Food {
   imagePath           String
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
-  saveFoods     SaveFood[]
 }
+
+// model SaveFood{
+//   id                  String @id @default(uuid())
+//   totalFoodNutrition  Int
+//   createdAt           DateTime @default(now())
+//   updatedAt           DateTime @updatedAt
+
+//   userId              String
+//   foodId              String
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   food Food @relation(fields: [foodId], references: [id], onDelete: Restrict)
+// }
 
 model SaveFood{
   id                  String @id @default(uuid())
+  name                String
   totalFoodNutrition  Int
+  calories            Int?
+  protein             Float?
+  fat                 Float?
+  carbohydrates       Float?
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
   userId              String
-  foodId              String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  food Food @relation(fields: [foodId], references: [id], onDelete: Restrict)
 }

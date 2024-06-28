@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardDetect from "@/components/detect/card-detect";
-import Image from "next/image";
+import ButtonSaveFood from "@/components/detect/button-save-food";
+import { Beef, EggFried, Flame, Wheat } from "lucide-react";
 
 interface DetectionResult {
   className: string;
@@ -115,12 +116,7 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
             <div className="flex gap-2 justify-between text-center mt-2">
               <div>
                 <div className="flex items-center">
-                  <Image
-                    src="/nutrisi/kalori.png"
-                    width={25}
-                    height={25}
-                    alt="Kal image"
-                  />
+                  <Flame size={20} />
                   <h1>Kal</h1>
                 </div>
                 <p>
@@ -132,12 +128,7 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
               </div>
               <div>
                 <div className="flex items-center">
-                  <Image
-                    src="/nutrisi/protein.png"
-                    width={25}
-                    height={25}
-                    alt="Prot image"
-                  />
+                  <Beef size={20} />
                   <h1>Prot</h1>
                 </div>
                 <p>
@@ -149,12 +140,7 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
               </div>
               <div>
                 <div className="flex items-center">
-                  <Image
-                    src="/nutrisi/carbo.png"
-                    width={25}
-                    height={25}
-                    alt="Karbo image"
-                  />
+                  <Wheat size={20} />
                   <h1>Karbo</h1>
                 </div>
                 <p>
@@ -166,12 +152,7 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
               </div>
               <div>
                 <div className="flex items-center">
-                  <Image
-                    src="/nutrisi/fat.png"
-                    width={25}
-                    height={25}
-                    alt="Lemak image"
-                  />
+                  <EggFried size={20} />
                   <h1>Lemak</h1>
                 </div>
                 <p>
@@ -182,6 +163,12 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
                 </p>
               </div>
             </div>
+
+            <ButtonSaveFood
+              foodNames={Array.from(uniqueDetections)}
+              classCounts={classCounts}
+              totalNutrients={totalNutrients}
+            />
           </div>
         </div>
       )}
