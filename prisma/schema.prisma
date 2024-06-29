@@ -62,21 +62,6 @@ model PasswordResetToken {
   @@unique([email, token])
 }
 
-// model Foods {
-//   id              String   @id @default(cuid())
-//   userId          String
-//   foodName        String
-//   calories        Float
-//   protein         Float
-//   fat             Float
-//   carbohydrates   Float
-//   detection_time  DateTime
-//   image_path      String
-//   user            User     @relation(fields: [userId], references: [id])
-
-//   @@index([userId])
-// }
-
 
 model Food {
   id                  String @id @default(uuid())
@@ -107,7 +92,7 @@ model Food {
 model SaveFood{
   id                  String @id @default(uuid())
   name                String
-  totalFoodNutrition  Int
+  classCounts         Json?
   calories            Int?
   protein             Float?
   fat                 Float?

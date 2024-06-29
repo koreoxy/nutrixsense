@@ -32,6 +32,19 @@ const ButtonSaveFood: React.FC<ButtonSaveProps> = ({
     setError(null);
     setSuccess(null);
 
+    // Buat variabel yang berbeda untuk nama makanan yang digabungkan
+    const joinedFoodNames = foodNames.join(", ");
+
+    // Hitung total classCounts per makanan
+    const calculatedClassCounts = foodNames.reduce((totals, name) => {
+      if (totals[name]) {
+        totals[name] += classCounts[name];
+      } else {
+        totals[name] = classCounts[name];
+      }
+      return totals;
+    }, {} as Record<string, number>);
+
     try {
       const response = await fetch("/api/savefood", {
         method: "POST",
@@ -39,11 +52,8 @@ const ButtonSaveFood: React.FC<ButtonSaveProps> = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          foodName: foodNames.join(", "), // Nama makanan
-          classCounts: foodNames.reduce(
-            (total, name) => total + classCounts[name],
-            0
-          ), // Total class
+          foodName: joinedFoodNames, // Nama makanan digabungkan dengan koma
+          classCounts: calculatedClassCounts, // Total class untuk setiap makanan
           calories: totalNutrients.calories,
           protein: totalNutrients.protein,
           fat: totalNutrients.fat,
@@ -57,9 +67,9 @@ const ButtonSaveFood: React.FC<ButtonSaveProps> = ({
       }
 
       const result = await response.json();
-      setSuccess("Food saved successfully!");
+      setSuccess("Data makanan berhasil disimpan!");
     } catch (err) {
-      setError("Food already exists");
+      setError("Data Nutrisi Makanan telah ada");
     } finally {
       setLoading(false);
     }

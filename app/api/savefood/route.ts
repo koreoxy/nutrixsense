@@ -20,13 +20,16 @@ export async function POST(request: NextRequest) {
     // Cek apakah nama makanan sudah ada di database
     const existingFood = await prisma.saveFood.findFirst({
       where: {
-        name: foodName,
+        userId: userId,
+        classCounts: {
+          equals: classCounts,
+        },
       },
     });
 
     if (existingFood) {
       return NextResponse.json(
-        { error: "Food already exists" },
+        { error: "Data Nutrisi Makanan telah ada!" },
         { status: 400 }
       );
     }
@@ -35,23 +38,88 @@ export async function POST(request: NextRequest) {
     const savedFood = await prisma.saveFood.create({
       data: {
         name: foodName,
-        totalFoodNutrition: classCounts,
+        classCounts: classCounts,
         calories,
         protein,
         fat,
         carbohydrates,
-        userId, // Sertakan userId yang sesuai
+        userId,
       },
     });
 
     return NextResponse.json({
-      message: "Food saved successfully",
+      message: "Data makanan berhasil disimpan!",
       data: savedFood,
     });
   } catch (error) {
     console.error("Error saving food:", error);
     return NextResponse.json(
       { error: "Failed to save food!" },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+// Handler untuk GET request
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get("userId");
+
+  try {
+    // Memeriksa apakah userId ada
+    if (!userId) {
+      return NextResponse.json(
+        { error: "User ID is required!" },
+        { status: 400 }
+      );
+    }
+
+    // Mencari data makanan yang disimpan berdasarkan userId
+    const foods = await prisma.saveFood.findMany({
+      where: { userId },
+    });
+
+    // Mengembalikan data makanan yang disimpan dalam format JSON
+    return NextResponse.json({
+      status: "success",
+      data: foods,
+    });
+  } catch (err) {
+    console.error("Error fetching saved foods:", err);
+    return NextResponse.json(
+      { error: "Failed to fetch saved foods!" },
+      { status: 500 }
+    );
+  }
+}
+
+// Handler untuk DELETE request
+export async function DELETE(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const foodId = searchParams.get("foodId");
+
+  try {
+    if (!foodId) {
+      return NextResponse.json(
+        { error: "Food ID is required!" },
+        { status: 400 }
+      );
+    }
+
+    await prisma.saveFood.delete({
+      where: { id: foodId },
+    });
+
+    return NextResponse.json({
+      status: "success",
+      message: "Data makanan berhasil dihapus!",
+    });
+  } catch (err) {
+    console.error("Error deleting food:", err);
+    return NextResponse.json(
+      { error: "Failed to delete food!" },
       { status: 500 }
     );
   } finally {
