@@ -39,6 +39,7 @@ export const getNewestFoods = async () => {
       protein: true,
       fat: true,
       carbohydrates: true,
+      imagePath: true,
     },
     orderBy: { name: "desc" },
     take: 6,
