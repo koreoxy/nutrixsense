@@ -1,6 +1,6 @@
 "use server";
 
-import { optional, z } from "zod";
+import { z } from "zod";
 import fs from "fs/promises";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
@@ -41,6 +41,7 @@ const editSchema = addSchema.extend({
   image: imageSchema.optional(),
 });
 
+// ADD ACTION FOOD
 export const addFood = async (prevState: unknown, formData: FormData) => {
   const validatedFields = addSchema.safeParse(
     Object.fromEntries(formData.entries())
@@ -93,6 +94,7 @@ export const addFood = async (prevState: unknown, formData: FormData) => {
   redirect("/admin/foods");
 };
 
+// UPDATE ACTION FOOD
 export const updateFood = async (
   id: string,
   prevState: unknown,
@@ -129,10 +131,22 @@ export const updateFood = async (
       data: {
         name: data.name,
         description: data.description,
+        portion: data.portion,
         calories: data.calories,
         protein: data.protein,
         fat: data.fat,
         carbohydrates: data.carbohydrates,
+        berat: data.berat,
+        energiKj: data.energiKj,
+        energiKl: data.energiKl,
+        lemakJenuh: data.lemakJenuh,
+        lemakTakJenuhG: data.lemakTakJenuhG,
+        lemakTakJenuhT: data.lemakTakJenuhT,
+        kolestrol: data.kolestrol,
+        serat: data.serat,
+        gula: data.gula,
+        sodium: data.sodium,
+        kalium: data.kalium,
         imagePath,
       },
     });
@@ -144,6 +158,7 @@ export const updateFood = async (
   redirect("/admin/foods");
 };
 
+// DELETE ACTION FOOD
 export async function deleteFood(id: string) {
   const food = await db.food.delete({
     where: { id },
