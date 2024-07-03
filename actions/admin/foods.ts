@@ -1,6 +1,6 @@
 "use server";
 
-import { z } from "zod";
+import { optional, z } from "zod";
 import fs from "fs/promises";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
@@ -18,10 +18,22 @@ const imageSchema = fileSchema
 const addSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
+  portion: z.string(),
   calories: z.coerce.number().int().min(1),
   protein: z.coerce.number().positive().min(0),
   fat: z.coerce.number().positive().min(0),
   carbohydrates: z.coerce.number().positive().min(0),
+  berat: z.string().min(0).optional(),
+  energiKj: z.coerce.number().nonnegative().optional(),
+  energiKl: z.coerce.number().nonnegative().optional(),
+  lemakJenuh: z.coerce.number().nonnegative().optional(),
+  lemakTakJenuhG: z.coerce.number().nonnegative().optional(),
+  lemakTakJenuhT: z.coerce.number().nonnegative().optional(),
+  kolestrol: z.coerce.number().int().min(0).optional(),
+  serat: z.coerce.number().nonnegative().optional(),
+  gula: z.coerce.number().nonnegative().optional(),
+  sodium: z.coerce.number().int().min(0).optional(),
+  kalium: z.coerce.number().int().min(0).optional(),
   image: imageSchema,
 });
 
@@ -54,10 +66,22 @@ export const addFood = async (prevState: unknown, formData: FormData) => {
       data: {
         name: data.name,
         description: data.description,
+        portion: data.portion,
         calories: data.calories,
         protein: data.protein,
         fat: data.fat,
         carbohydrates: data.carbohydrates,
+        berat: data.berat,
+        energiKj: data.energiKj,
+        energiKl: data.energiKl,
+        lemakJenuh: data.lemakJenuh,
+        lemakTakJenuhG: data.lemakTakJenuhG,
+        lemakTakJenuhT: data.lemakTakJenuhT,
+        kolestrol: data.kolestrol,
+        serat: data.serat,
+        gula: data.gula,
+        sodium: data.sodium,
+        kalium: data.kalium,
         imagePath,
       },
     });

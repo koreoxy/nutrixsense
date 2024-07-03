@@ -72,6 +72,17 @@ model Food {
   fat                 Float?
   carbohydrates       Float?
   portion             String?
+  berat               String?
+  energiKj            Float?
+  energiKl            Float?
+  lemakJenuh          Float?
+  lemakTakJenuhG      Float?
+  lemakTakJenuhT      Float?
+  kolestrol           Int?
+  serat               Float?
+  gula                Float?
+  sodium              Int?
+  kalium              Int?
   imagePath           String
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
