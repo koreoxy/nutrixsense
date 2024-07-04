@@ -71,7 +71,7 @@ model Food {
   protein             Float?
   fat                 Float?
   carbohydrates       Float?
-  portion             String?
+  portion             Portion?
   berat               String?
   energiKj            Float?
   energiKl            Float?
@@ -86,6 +86,15 @@ model Food {
   imagePath           String
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
+}
+
+enum Portion {
+  SATU_BESAR
+  SATU_SDM
+  SERATUS_GRAM
+  SATU_BUAH
+  SATU_PORSI
+  SATU_MANGKOK
 }
 
 // model SaveFood{

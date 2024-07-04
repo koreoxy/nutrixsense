@@ -5,6 +5,7 @@ import fs from "fs/promises";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
+import { Portion } from "@prisma/client";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
 const imageSchema = fileSchema
@@ -15,10 +16,19 @@ const imageSchema = fileSchema
     message: "Image must less than 4MB",
   });
 
+// enum Portion {
+//   SATU_BESAR = "1 Besar",
+//   SATU_SDM = "1 sdm",
+//   SERATUS_GRAM = "100 gram",
+//   SATU_BUAH = "1 buah",
+//   SATU_PORSI = "1 porsi",
+//   SATU_MANGKOK = "1 mangkok",
+// }
+
 const addSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
-  portion: z.string(),
+  portion: z.nativeEnum(Portion),
   calories: z.coerce.number().int().min(1),
   protein: z.coerce.number().positive().min(0),
   fat: z.coerce.number().positive().min(0),
@@ -67,7 +77,7 @@ export const addFood = async (prevState: unknown, formData: FormData) => {
       data: {
         name: data.name,
         description: data.description,
-        portion: data.portion,
+        portion: data.portion as Portion,
         calories: data.calories,
         protein: data.protein,
         fat: data.fat,
@@ -87,7 +97,7 @@ export const addFood = async (prevState: unknown, formData: FormData) => {
       },
     });
   } catch (error) {
-    return { message: "Filed to create data" };
+    return { message: "Failed to create data" };
   }
 
   revalidatePath("/admin/foods");
@@ -131,7 +141,7 @@ export const updateFood = async (
       data: {
         name: data.name,
         description: data.description,
-        portion: data.portion,
+        portion: data.portion as Portion,
         calories: data.calories,
         protein: data.protein,
         fat: data.fat,
@@ -167,4 +177,10 @@ export async function deleteFood(id: string) {
   if (food == null) return notFound();
 
   await fs.unlink(`public${food.imagePath}`);
+}
+
+export async function getFoodByPortion(id: string, portion: Portion) {
+  return (food = await db.food.findFirst({
+    where: { id, portion },
+  }));
 }

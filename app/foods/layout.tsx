@@ -10,6 +10,7 @@ const FoodsLayout = ({ children }: ProtectedLayoutProps) => {
     <>
       <Navbar title="Detail Food" />
       <div className="overflow-y-auto mb-16">{children}</div>
+
       <MenuBar />
     </>
   );

@@ -1,0 +1,38 @@
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Portion } from "@prisma/client";
+
+type SelectPorsiProps = {
+  portion: string | null;
+  onChange: (portion: string) => void;
+};
+
+const SelectPorsi: React.FC<SelectPorsiProps> = ({ portion, onChange }) => {
+  return (
+    <Select name="Porsi" value={portion ?? ""} onValueChange={onChange}>
+      <SelectTrigger>
+        <SelectValue placeholder="Pilih porsi" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Porsi</SelectLabel>
+          <SelectItem value={Portion.SATU_BESAR}>1 Besar</SelectItem>
+          <SelectItem value={Portion.SATU_SDM}>1 sdm</SelectItem>
+          <SelectItem value={Portion.SERATUS_GRAM}>100 gram</SelectItem>
+          <SelectItem value={Portion.SATU_BUAH}>1 buah</SelectItem>
+          <SelectItem value={Portion.SATU_PORSI}>1 porsi</SelectItem>
+          <SelectItem value={Portion.SATU_MANGKOK}>1 mangkok</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+};
+
+export default SelectPorsi;

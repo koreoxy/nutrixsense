@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useState } from "react";
+import { Portion } from "@prisma/client";
 
 export function FoodForm({ food }: { food?: Food | null }) {
   const [state, formAction] = useFormState(
@@ -26,7 +27,9 @@ export function FoodForm({ food }: { food?: Food | null }) {
   );
   const { pending } = useFormStatus();
 
-  const [selectedPortion, setSelectedPortion] = useState(food?.portion || "");
+  const [selectedPortion, setSelectedPortion] = useState<Portion | undefined>(
+    food?.portion as Portion | undefined
+  );
 
   return (
     <form className="space-y-6" action={formAction}>
@@ -56,7 +59,7 @@ export function FoodForm({ food }: { food?: Food | null }) {
         <Select
           name="portion"
           value={selectedPortion}
-          onValueChange={(value) => setSelectedPortion(value)}
+          onValueChange={(value) => setSelectedPortion(value as Portion)}
         >
           <SelectTrigger>
             <SelectValue placeholder="Pilih porsi" />
@@ -64,12 +67,12 @@ export function FoodForm({ food }: { food?: Food | null }) {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Porsi</SelectLabel>
-              <SelectItem value="1 besar">1 Besar</SelectItem>
-              <SelectItem value="1 sdm">1 sdm</SelectItem>
-              <SelectItem value="100 gram">100 gram</SelectItem>
-              <SelectItem value="1 buah">1 buah</SelectItem>
-              <SelectItem value="1 porsi">1 porsi</SelectItem>
-              <SelectItem value="1 mangkok">1 mangkok</SelectItem>
+              <SelectItem value={Portion.SATU_BESAR}>1 Besar</SelectItem>
+              <SelectItem value={Portion.SATU_SDM}>1 sdm</SelectItem>
+              <SelectItem value={Portion.SERATUS_GRAM}>100 gram</SelectItem>
+              <SelectItem value={Portion.SATU_BUAH}>1 buah</SelectItem>
+              <SelectItem value={Portion.SATU_PORSI}>1 porsi</SelectItem>
+              <SelectItem value={Portion.SATU_MANGKOK}>1 mangkok</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
