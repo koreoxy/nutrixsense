@@ -62,7 +62,9 @@ const AccountSaveFood = () => {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="flex flex-col overflow-y-auto my-16 text-black dark:text-white dark:bg-background h-full mx-auto justify-center items-center">
+          <div>Loading...</div>
+        </div>
       ) : error ? (
         <p>{error}</p>
       ) : (

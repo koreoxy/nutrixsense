@@ -6,7 +6,7 @@ const FoodPage = () => {
   return (
     <div className="flex flex-col mt-5 p-4 space-y-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-center font-bold text-lg">Foods</h1>
+        <h1 className="text-center font-bold text-lg">Makanan</h1>
         <Button asChild>
           <Link href="/admin/foods/new">Add Foods</Link>
         </Button>

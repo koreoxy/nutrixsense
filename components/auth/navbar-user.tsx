@@ -1,31 +1,51 @@
 import { Button } from "@/components/ui/button";
+import { BookPlus, CircleUser, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export const NavbarUser = () => {
-  const pathname = usePathname();
+  const path = usePathname();
+
+  const isPageActive = (pathname: string) => {
+    return path === pathname;
+  };
 
   return (
-    <nav className="bg-secondary flex justify-between p-4 shadow-sm">
-      <div className="flex gap-x-2">
-        <Button
-          asChild
-          variant={pathname === "/account" ? "default" : "outline"}
+    <nav className="border p-2 shadow-sm">
+      <div className="flex justify-center gap-2">
+        <Link
+          href="/account"
+          passHref
+          className={`${
+            isPageActive("/account")
+              ? "text-white border p-3 rounded-lg text-sm bg-[#3b82f6] hover:text-white font-medium"
+              : "text-black dark:text-white hover:text-white hover:bg-[#3b82f6] border p-3 rounded-lg bg-white text-sm dark:bg-background"
+          }`}
         >
-          <Link href="/account">Info Account</Link>
-        </Button>
-        <Button
-          asChild
-          variant={pathname === "/account/settings" ? "default" : "outline"}
+          <CircleUser />
+        </Link>
+        <Link
+          href="/account/settings"
+          passHref
+          className={`${
+            isPageActive("/account/settings")
+              ? "text-white border p-3 rounded-lg text-sm bg-[#3b82f6] hover:text-white font-medium "
+              : "text-black dark:text-white hover:text-white hover:bg-[#3b82f6] border p-3 rounded-lg bg-white text-sm dark:bg-background"
+          }`}
         >
-          <Link href="/account/settings">Settings</Link>
-        </Button>
-        <Button
-          asChild
-          variant={pathname === "/account/save-food" ? "default" : "outline"}
+          <Settings />
+        </Link>
+        <Link
+          href="/account/save-food"
+          passHref
+          className={`${
+            isPageActive("/account/save-food")
+              ? "text-white border p-3 rounded-lg text-sm bg-[#3b82f6] hover:text-white font-medium "
+              : "text-black dark:text-white hover:text-white hover:bg-[#3b82f6] border p-3 rounded-lg bg-white text-sm dark:bg-background"
+          }`}
         >
-          <Link href="/account/save-food">Save Food</Link>
-        </Button>
+          <BookPlus />
+        </Link>
       </div>
     </nav>
   );

@@ -11,7 +11,7 @@ import { FaUser } from "react-icons/fa";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { ExitIcon } from "@radix-ui/react-icons";
-import { Accessibility } from "lucide-react";
+import { Accessibility, BookPlus, CircleUser } from "lucide-react";
 import { useCurrentRole } from "@/hooks/use-current-role";
 import Link from "next/link";
 
@@ -40,6 +40,18 @@ export const UserButton = () => {
         ) : (
           <></>
         )}
+        <DropdownMenuItem>
+          <Link href="/account" className="flex">
+            <CircleUser className="h-4 w-4 mr-2" />
+            Account
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/account/save-food" className="flex">
+            <BookPlus className="h-4 w-4 mr-2" />
+            Save Food
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <LogoutButton>
             <div className="flex">

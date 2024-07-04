@@ -1,6 +1,6 @@
 "use client";
 
-import { BookPlus, CircleUser, Home, Plus, ScanLine } from "lucide-react";
+import { BookPlus, CircleUser, Home, Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -26,15 +26,15 @@ export const MenuBar = () => {
           <Home />
         </Link>
         <Link
-          href="/detect"
+          href="/search"
           passHref
           className={`${
-            isPageActive("/detect")
+            isPageActive("/search")
               ? "text-[#3b82f6#ff0000]"
               : "text-black dark:text-white hover:text-[#3b82f6#ff0000]"
           }`}
         >
-          <ScanLine />
+          <Search />
         </Link>
         <Link
           href="/image-detect"
@@ -48,7 +48,17 @@ export const MenuBar = () => {
           <Plus size={30} />
         </Link>
         <div>
-          <BookPlus />
+          <Link
+            href="/account/save-food"
+            passHref
+            className={`${
+              isPageActive("/account/save-food")
+                ? "text-[#3b82f6]"
+                : "text-black dark:text-white hover:text-[#3b82f6]"
+            }`}
+          >
+            <BookPlus />
+          </Link>
         </div>
         <Link
           href="/account"

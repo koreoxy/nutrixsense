@@ -29,20 +29,34 @@ const FoodTable = async () => {
         <TableRow>
           <TableHead className="w-[100px]">No</TableHead>
           <TableHead>Food Name</TableHead>
-          <TableHead>Calories</TableHead>
+          <TableHead>Kalori</TableHead>
           <TableHead>Protein</TableHead>
-          <TableHead>Fat</TableHead>
+          <TableHead>Lemak</TableHead>
+          <TableHead>Karbohidrat</TableHead>
           <TableHead className="text-right">Action</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody className="text-center">
         {foods.map((food, index) => (
           <TableRow key={food.id}>
             <TableCell>{index + 1}</TableCell>
             <TableCell>{food.name}</TableCell>
-            <TableCell>{food.calories}</TableCell>
-            <TableCell>{food.protein}</TableCell>
-            <TableCell>{food.fat}</TableCell>
+            <TableCell>
+              {food.calories}
+              <b className="text-muted-foreground text-sm font-normal">kkal</b>
+            </TableCell>
+            <TableCell>
+              {food.protein}
+              <b className="text-muted-foreground text-sm font-normal">g</b>
+            </TableCell>
+            <TableCell>
+              {food.fat}
+              <b className="text-muted-foreground text-sm font-normal">g</b>
+            </TableCell>
+            <TableCell>
+              {food.carbohydrates}
+              <b className="text-muted-foreground text-sm font-normal">g</b>
+            </TableCell>
             <TableCell className="flex justify-center">
               <DropdownMenu>
                 <DropdownMenuTrigger>

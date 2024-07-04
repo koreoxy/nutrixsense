@@ -5,6 +5,7 @@ import { UserButton } from "@/components/auth/user-button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { LoginButton } from "@/components/auth/login-button";
 import { Button } from "@/components/ui/button";
+import { LogIn } from "lucide-react";
 
 interface NavbarProps {
   title: string;
@@ -20,11 +21,11 @@ export const Navbar = ({ title }: NavbarProps) => {
           {user ? (
             <UserButton />
           ) : (
-            <LoginButton>
-              <Button variant="secondary" size="lg">
-                Login
-              </Button>
-            </LoginButton>
+            <div className="border p-2 rounded-lg hover:bg-secondary">
+              <LoginButton>
+                <LogIn />
+              </LoginButton>
+            </div>
           )}
         </div>
         <div className="font-bold text-xl">{title}</div>

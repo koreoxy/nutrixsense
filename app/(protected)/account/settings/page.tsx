@@ -182,7 +182,7 @@ const AccountSettingsPage = () => {
               </div>
               <FormError message={error} />
               <FormSuccess message={success} />
-              <Button type="submit" disabled={isPending}>
+              <Button type="submit" disabled={isPending} className="w-full">
                 Save
               </Button>
             </form>
