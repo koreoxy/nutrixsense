@@ -17,6 +17,9 @@ export default auth((req) => {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
+  // Tambahkan pengecekan untuk /foods/[id]
+  const isFoodDetailRoute = /^\/foods\/[^/]+$/.test(nextUrl.pathname);
+
   if (isApiAuthRoute) {
     return null;
   }
@@ -28,7 +31,7 @@ export default auth((req) => {
     return null;
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
+  if (!isLoggedIn && !isPublicRoute && !isFoodDetailRoute) {
     return Response.redirect(new URL("/auth/login", nextUrl));
   }
 

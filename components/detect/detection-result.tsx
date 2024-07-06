@@ -32,6 +32,20 @@ const classNameToFoodName: ClassNameToFoodName = {
   nasi_putih: "Nasi Putih",
 };
 
+type PortionFood = {
+  [key: string]: string;
+};
+
+const portionFood: PortionFood = {
+  "Tahu Goreng": "Buah",
+  "Tempe Goreng": "Buah",
+  "Paha Ayam Goreng": "Buah",
+  "Telur Dadar": "Besar",
+  "Telur Rebus": "Sedang",
+  "Tumis Kangkung": "Mangkuk",
+  "Nasi Putih": "Porsi",
+};
+
 const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
   detections,
 }) => {
@@ -73,7 +87,6 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
     calculateTotalNutrients();
   }, [detections]);
 
-  // Create a dictionary to count each class
   const classCounts = detections.reduce((acc, detection) => {
     const foodName = classNameToFoodName[detection.className];
     if (foodName) {
@@ -82,7 +95,6 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
     return acc;
   }, {} as Record<string, number>);
 
-  // Create a set to track unique classes
   const uniqueDetections = detections.reduce((acc, detection) => {
     const foodName = classNameToFoodName[detection.className];
     if (foodName && !acc.has(foodName)) {
@@ -104,13 +116,13 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
             </div>
           ))}
 
-          {/* Display Total Nutrients for All Foods */}
+          {/* Tampilkan Total Nutrisi untuk Semua Makanan */}
           <div className="mt-4 border-t pt-4 p-4">
             <h2 className="font-bold text-lg">Total Nutrisi Semua Makanan</h2>
 
             {Array.from(uniqueDetections).map((foodName, index) => (
               <p key={index}>
-                {classCounts[foodName]} {""} {foodName}
+                {classCounts[foodName]} {portionFood[foodName]} {foodName}
               </p>
             ))}
             <div className="flex gap-2 justify-between text-center mt-2">

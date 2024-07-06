@@ -6,7 +6,7 @@ import { Beef, EggFried, Flame, Wheat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Food {
-  id: string; // Ubah tipe data id menjadi string
+  id: string;
   name: string;
   classCounts: { [key: string]: number };
   calories: number;
@@ -14,6 +14,16 @@ interface Food {
   fat: number;
   carbohydrates: number;
 }
+
+const portionFood: { [key: string]: string } = {
+  "Tahu Goreng": "Buah",
+  "Tempe Goreng": "Buah",
+  "Paha Ayam Goreng": "Buah",
+  "Telur Dadar": "Besar",
+  "Telur Rebus": "Sedang",
+  "Tumis Kangkung": "Mangkuk",
+  "Nasi Putih": "Porsi",
+};
 
 const AccountSaveFood = () => {
   const user = useCurrentUser();
@@ -81,9 +91,9 @@ const AccountSaveFood = () => {
                     <ul className="mt-1">
                       {food.classCounts &&
                         Object.entries(food.classCounts).map(
-                          ([key, value]: [string, number], idx) => (
+                          ([foodName, count]: [string, number], idx) => (
                             <li key={idx}>
-                              {key}: {value}
+                              {foodName} {count} {portionFood[foodName] || ""}
                             </li>
                           )
                         )}
