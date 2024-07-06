@@ -30,8 +30,8 @@ export const MenuBar = () => {
           passHref
           className={`${
             isPageActive("/search")
-              ? "text-[#3b82f6#ff0000]"
-              : "text-black dark:text-white hover:text-[#3b82f6#ff0000]"
+              ? "text-[#3b82f6]"
+              : "text-black dark:text-white hover:text-[#3b82f6]"
           }`}
         >
           <Search />

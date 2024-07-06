@@ -1,7 +1,7 @@
 /**
  *Route yang bisa diakses sama public user
  */
-export const publicRoutes = ["/"];
+export const publicRoutes = ["/", "/search"];
 
 /**
  *Route yang hanya bisa diakses user yang telah login

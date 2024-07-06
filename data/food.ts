@@ -1,4 +1,82 @@
 import { db } from "@/lib/db";
+import { Portion } from "@prisma/client";
+
+const ITEMS_PER_PAGE = 6;
+
+export const getAllFood = async (
+  query: string,
+  currentPage: number,
+  portion?: string
+) => {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  return db.food.findMany({
+    where: {
+      AND: [
+        {
+          OR: [
+            {
+              name: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
+        portion && portion !== "all"
+          ? {
+              portion: {
+                equals: portion as Portion,
+              },
+            }
+          : {},
+      ],
+    },
+    skip: offset,
+    take: ITEMS_PER_PAGE,
+  });
+};
+
+export const getAllFoodPages = async (query: string, portion?: string) => {
+  const totalItems = await db.food.count({
+    where: {
+      AND: [
+        {
+          OR: [
+            {
+              name: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
+        portion && portion !== "all"
+          ? {
+              portion: {
+                equals: portion as Portion,
+              },
+            }
+          : {},
+      ],
+    },
+  });
+
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+  return totalPages;
+};
 
 export const getFoods = async () => {
   try {
@@ -43,19 +121,5 @@ export const getNewestFoods = async () => {
     },
     orderBy: { name: "desc" },
     take: 6,
-  });
-};
-
-export const getAllFood = async () => {
-  return db.food.findMany({
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      calories: true,
-      protein: true,
-      fat: true,
-      carbohydrates: true,
-    },
   });
 };

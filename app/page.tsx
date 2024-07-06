@@ -12,7 +12,7 @@ export default async function Home() {
       <div className="flex-1 items-start overflow-y-auto overflow-x-hidden flex justify-center mb-16 bg-white dark:bg-background">
         <div className="p-4 flex flex-col w-full ">
           <div className="relative w-full">
-            <h1 className="text-4xl font-bold z-[1] absolute text-balance">
+            <h1 className="text-4xl font-bold z-[1] absolute text-balance text-shadow">
               Lacak Gizi Makananmu dengan Deteksi Gambar!
             </h1>
 
