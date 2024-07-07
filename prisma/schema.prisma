@@ -97,17 +97,6 @@ enum Portion {
   SATU_MANGKOK
 }
 
-// model SaveFood{
-//   id                  String @id @default(uuid())
-//   totalFoodNutrition  Int
-//   createdAt           DateTime @default(now())
-//   updatedAt           DateTime @updatedAt
-
-//   userId              String
-//   foodId              String
-//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   food Food @relation(fields: [foodId], references: [id], onDelete: Restrict)
-// }
 
 model SaveFood{
   id                  String @id @default(uuid())
