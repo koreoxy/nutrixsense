@@ -79,7 +79,7 @@ const SearchResultManual = ({ query, results }: SearchResultManualProps) => {
                   <TableCell>
                     <Button
                       onClick={() => handleAddFood(food)}
-                      className="text-white"
+                      className="text-white3"
                     >
                       Add Food
                     </Button>
