@@ -8,6 +8,7 @@ const portionMap: { [key in Portion]: string } = {
   [Portion.SATU_BUAH]: "1 buah",
   [Portion.SATU_PORSI]: "1 porsi",
   [Portion.SATU_MANGKOK]: "1 mangkok",
+  [Portion.all]: "All",
 };
 
 type Food = {
