@@ -110,7 +110,7 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
       </div>
 
       {/* Video Handler */}
-      <input
+      {/* <input
         type="file"
         accept="video/*"
         style={{ display: "none" }}
@@ -140,10 +140,10 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
         }}
       >
         {streaming === "video" ? "Close" : "Open"} Video
-      </button>
+      </button> */}
 
       {/* Webcam Handler */}
-      <button
+      {/* <button
         onClick={() => {
           // if not streaming
           if (streaming === null || streaming === "image") {
@@ -169,7 +169,7 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
         }}
       >
         {streaming === "camera" ? "Close" : "Open"} Webcam
-      </button>
+      </button> */}
     </div>
   );
 };

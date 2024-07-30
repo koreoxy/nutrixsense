@@ -10,13 +10,17 @@ import {
 import { Portion } from "@prisma/client";
 
 type SelectPorsiProps = {
-  portion: string | null;
-  onChange: (portion: string) => void;
+  portion: Portion | null;
+  onChange: (portion: Portion) => void;
 };
 
 const SelectPorsi: React.FC<SelectPorsiProps> = ({ portion, onChange }) => {
   return (
-    <Select name="Porsi" value={portion ?? ""} onValueChange={onChange}>
+    <Select
+      name="Porsi"
+      value={portion ?? ""}
+      onValueChange={(value) => onChange(value as Portion)}
+    >
       <SelectTrigger>
         <SelectValue placeholder="Pilih porsi" />
       </SelectTrigger>

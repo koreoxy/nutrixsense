@@ -4,7 +4,6 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { UserButton } from "@/components/auth/user-button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { LoginButton } from "@/components/auth/login-button";
-import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 
 interface NavbarProps {

@@ -1,4 +1,4 @@
-import { FoodForm } from "@/components/admin/food-form";
+import FoodForm from "@/components/admin/food-form.jsx";
 
 export default function NewFoodPage() {
   return (

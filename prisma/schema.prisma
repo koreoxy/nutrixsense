@@ -12,6 +12,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
   // uncomment next line if you use Prisma <5.10
   // directUrl = env("DATABASE_URL_UNPOOLED")
 }
@@ -89,6 +90,7 @@ model Food {
 }
 
 enum Portion {
+  all
   SATU_BESAR
   SATU_SDM
   SERATUS_GRAM

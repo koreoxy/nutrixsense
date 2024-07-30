@@ -1,13 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-
-enum Portion {
-  SATU_BESAR = "SATU_BESAR",
-  SATU_SDM = "SATU_SDM",
-  SERATUS_GRAM = "SERATUS_GRAM",
-  SATU_BUAH = "SATU_BUAH",
-  SATU_PORSI = "SATU_PORSI",
-  SATU_MANGKOK = "SATU_MANGKOK",
-}
+import { Portion } from "@prisma/client";
 
 const portionMap: { [key in Portion]: string } = {
   [Portion.SATU_BESAR]: "1 Besar",

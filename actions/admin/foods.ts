@@ -16,15 +16,6 @@ const imageSchema = fileSchema
     message: "Image must less than 4MB",
   });
 
-// enum Portion {
-//   SATU_BESAR = "1 Besar",
-//   SATU_SDM = "1 sdm",
-//   SERATUS_GRAM = "100 gram",
-//   SATU_BUAH = "1 buah",
-//   SATU_PORSI = "1 porsi",
-//   SATU_MANGKOK = "1 mangkok",
-// }
-
 const addSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
@@ -32,7 +23,7 @@ const addSchema = z.object({
   calories: z.coerce.number().int().min(1),
   protein: z.coerce.number().positive().min(0),
   fat: z.coerce.number().positive().min(0),
-  carbohydrates: z.coerce.number().positive().min(0),
+  carbohydrates: z.coerce.number().nonnegative().min(0),
   berat: z.string().min(0).optional(),
   energiKj: z.coerce.number().nonnegative().optional(),
   energiKl: z.coerce.number().nonnegative().optional(),
@@ -177,10 +168,4 @@ export async function deleteFood(id: string) {
   if (food == null) return notFound();
 
   await fs.unlink(`public${food.imagePath}`);
-}
-
-export async function getFoodByPortion(id: string, portion: Portion) {
-  return (food = await db.food.findFirst({
-    where: { id, portion },
-  }));
 }

@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import SelectPorsi from "@/components/foods/select-porsi";
 import { useToast } from "@/components/ui/use-toast";
+import { Portion } from "@prisma/client";
 
 type Food = {
   id: string | null;
@@ -31,15 +32,6 @@ type Food = {
   kalium: number | null;
   imagePath: string;
 };
-
-enum Portion {
-  SATU_BESAR = "1 Besar",
-  SATU_SDM = "1 sdm",
-  SERATUS_GRAM = "100 gram",
-  SATU_BUAH = "1 buah",
-  SATU_PORSI = "1 porsi",
-  SATU_MANGKOK = "1 mangkok",
-}
 
 const DetailFoodList = () => {
   const pathname = usePathname();
@@ -81,7 +73,7 @@ const DetailFoodList = () => {
     }
   }, [id]);
 
-  const handlePortionChange = (portion: string) => {
+  const handlePortionChange = (portion: Portion) => {
     setSelectedPortion(portion);
     const foodByPortion = allFoodData.find(
       (item) => item.name === food?.name && item.portion === portion
@@ -116,7 +108,7 @@ const DetailFoodList = () => {
           src={food.imagePath}
           width={500}
           height={500}
-          alt={food.name}
+          alt={food.name || "Food image"}
           className="rounded-md"
         />
       )}
@@ -181,7 +173,7 @@ const DetailFoodList = () => {
         <h1 className="font-bold text-lg">Pilih Porsi</h1>
         <Separator className="my-1" />
         <SelectPorsi
-          portion={food?.portion ?? ""}
+          portion={food?.portion ?? null}
           onChange={handlePortionChange}
         />
       </div>

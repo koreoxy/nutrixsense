@@ -35,8 +35,8 @@ export const {
       }
 
       if (session.user) {
-        session.user.name = token.name;
-        session.user.email = token.email;
+        session.user.name = token.name!;
+        session.user.email = token.email!;
         session.user.isOAuth = token.isOAuth as boolean;
       }
 
@@ -52,8 +52,8 @@ export const {
       const existingAccount = await getAccountByUserId(existingUser.id);
 
       token.isOAuth = !!existingAccount;
-      token.name = existingUser.name;
-      token.email = existingUser.email;
+      token.name = existingUser.name!;
+      token.email = existingUser.email!;
       token.role = existingUser.role;
 
       return token;
