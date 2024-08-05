@@ -1,4 +1,4 @@
-import FoodForm from "@/components/admin/food-form";
+import { FoodForm } from "@/components/admin/food-form";
 import { getFoodById } from "@/data/food";
 
 export default async function EditFoodPage({
