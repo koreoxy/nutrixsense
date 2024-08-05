@@ -74,11 +74,23 @@ export const SettingsSchema = z
   );
 
 export const FoodSchema = z.object({
-  foodName: z.string().min(3),
-  calories: z.number().min(1),
-  protein: z.number().min(1),
-  fat: z.number().min(1),
-  carbohydrates: z.number().min(1),
+  id: z.string(),
+  foodName: z.string().min(3, "Food name must be at least 3 characters long"),
+  calories: z.number().min(1, "Calories must be greater than 0"),
+  protein: z.number().min(1, "Protein must be greater than 0"),
+  fat: z.number().min(1, "Fat must be greater than 0"),
+  carbohydrates: z.number().min(1, "Carbohydrates must be greater than 0"),
   detection_time: z.date(),
-  image_path: z.string(),
+  berat: z.string(),
+  energiKj: z.number().optional(),
+  energiKl: z.number().optional(),
+  lemakJenuh: z.number().optional(),
+  lemakTakJenuhG: z.number().optional(),
+  lemakTakJenuhT: z.number().optional(),
+  kolesterol: z.number().optional(), // Corrected 'kolestrol' to 'kolesterol'
+  serat: z.number().optional(),
+  gula: z.number().optional(),
+  sodium: z.number().optional(),
+  kalium: z.number().optional(),
+  image_path: z.string().url(), // Ensure the string is a valid URL if it is an image URL
 });

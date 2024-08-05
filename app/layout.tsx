@@ -9,8 +9,9 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Healt Quest",
-  description: "HealthQuest: Perjalanan Kesehatan",
+  title: "NutrixSense",
+  description:
+    "NutrixSense: Aplikasi webstie mendeteksi objek makanan sehari-hari indonesia",
 };
 
 export default async function RootLayout({

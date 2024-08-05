@@ -60,7 +60,7 @@ export const LoginForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="welcome back"
+      headerLabel="Selamat Datang"
       backButtonLabel="Tidak Memiliki Akun ?"
       backButtonHref="/auth/register"
       buttonHomeHref="/"

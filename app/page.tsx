@@ -4,6 +4,8 @@ import { MenuBar } from "@/components/menu-bar";
 import CardFoodHome from "@/components/card-food-home";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Footer } from "@/components/footer";
+import { Info, Salad } from "lucide-react";
 
 export default async function Home() {
   return (
@@ -28,9 +30,12 @@ export default async function Home() {
             <Button variant="outline">let&apos;s try</Button>
           </Link>
 
-          <div className="mt-7">
+          <div className="mt-10">
             <div className="flex justify-between items-center border-b">
-              <h1 className="font-bold text-2xl">List food</h1>
+              <h1 className="font-bold text-2xl flex items-center gap-1">
+                <Salad />
+                List food
+              </h1>
               <h2 className="text-muted-foreground text-xs">
                 Slide to see more
               </h2>
@@ -43,17 +48,25 @@ export default async function Home() {
 
           <div className="mt-10">
             <div className="border-b">
-              <h1 className="font-bold text-2xl">Info</h1>
+              <h1 className="font-bold text-2xl flex items-center gap-1">
+                <Info />
+                Information
+              </h1>
             </div>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-              dolor, totam rem distinctio aspernatur quo impedit dolorem
-              voluptatum ab et eligendi, cupiditate ratione quidem ipsa vel cum
-              rerum nemo mollitia?
+            <p className="text-sm mt-2">
+              Aplikasi NutrixSense adalah aplikasi berbasis web yang bertujuan
+              untuk menghitung kalori dan nutrisi harian di Indonesia
+              menggunakan deteksi objek dari model YOLOv8. Aplikasi ini juga
+              memungkinkan pengguna untuk menghitung kalori dan nutrisi makanan
+              secara manual. Saat ini, NutrixSense hanya dapat mendeteksi 10
+              jenis makanan.
             </p>
           </div>
+
+          <Footer />
         </div>
       </div>
+
       <MenuBar />
     </>
   );

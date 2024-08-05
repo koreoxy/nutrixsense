@@ -65,8 +65,8 @@ const CardFoodHome: React.FC = async () => {
                   <div className="bg-background w-full p-1 rounded-b-md border">
                     <h1 className="font-bold">{food.name}</h1>
                     <p className="text-sm text-muted-foreground">
-                      {food.description.length > 100
-                        ? food.description.substring(0, 50) + "..."
+                      {food.description.length > 35
+                        ? food.description.substring(0, 35) + "..."
                         : food.description}
                     </p>
                   </div>
