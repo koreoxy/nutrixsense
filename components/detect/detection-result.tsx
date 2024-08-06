@@ -30,6 +30,9 @@ const classNameToFoodName: ClassNameToFoodName = {
   telur_rebus: "Telur Rebus",
   tumis_kangkung: "Tumis Kangkung",
   nasi_putih: "Nasi Putih",
+  pisang: "Pisang",
+  sambal: "Sambal",
+  indomie_goreng: "Indomie Goreng",
 };
 
 type PortionFood = {
@@ -44,6 +47,9 @@ const portionFood: PortionFood = {
   "Telur Rebus": "Sedang",
   "Tumis Kangkung": "Mangkuk",
   "Nasi Putih": "Porsi",
+  Pisang: "Besar",
+  Sambal: "Porsi",
+  "Indomie Goreng": "Porsi",
 };
 
 const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({

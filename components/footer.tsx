@@ -12,7 +12,7 @@ export const Footer = () => {
   return (
     <div className="mt-10 border-t">
       <div className="flex flex-row justify-between items-center p-2">
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <Image src={logoSrc} width={20} height={20} alt="logo" />
           <h1 className="font-bold text-lg">NutrixSense</h1>
         </div>
@@ -33,7 +33,10 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <p className="text-xs text-muted-foreground mt-5 text-center">
+      <p className="text-xs text-muted-foreground text-center mt-5">
+        Versi 1.0
+      </p>
+      <p className="text-xs text-muted-foreground mt-1 text-center">
         Koreoxy &copy; 2024
       </p>
     </div>

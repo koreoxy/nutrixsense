@@ -1,6 +1,6 @@
 import React, { useState, useRef, MutableRefObject } from "react";
 import { Button } from "@/components/ui/button";
-import { CircleX, SquarePlus, Upload } from "lucide-react";
+import { CircleX, Info, SquarePlus, Upload } from "lucide-react";
 import Link from "next/link";
 import { Webcam } from "@/utils/yolov8/webcam";
 
@@ -73,40 +73,54 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
         }}
         ref={inputImageRef}
       />
-      <div className="flex gap-2">
-        <Button
-          onClick={() => {
-            // if not streaming
-            if (streaming === null) inputImageRef.current?.click();
-            // closing image streaming
-            else if (streaming === "image") closeImage();
-            else
-              alert(
-                `Can't handle more than 1 stream\nCurrently streaming : ${streaming}`
-              ); // if streaming video or webcam
-          }}
-          className={
-            isImageUploaded
-              ? "bg-red-500 hover:bg-red-800 text-white w-full"
-              : "text-white w-full"
-          }
-        >
-          {streaming === "image" ? (
-            <>
-              <CircleX className="inline-block mr-2" /> Remove Image
-            </>
-          ) : (
-            <>
-              <Upload className="inline-block mr-2" /> Upload Image
-            </>
-          )}
-        </Button>
-        <Button className="text-white w-full">
-          <Link href="/check-manual">
-            <SquarePlus className="inline-block mr-2" />
-            Check manual
-          </Link>
-        </Button>
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-row gap-2">
+          <Button
+            onClick={() => {
+              // if not streaming
+              if (streaming === null) inputImageRef.current?.click();
+              // closing image streaming
+              else if (streaming === "image") closeImage();
+              else
+                alert(
+                  `Can't handle more than 1 stream\nCurrently streaming : ${streaming}`
+                ); // if streaming video or webcam
+            }}
+            className={
+              isImageUploaded
+                ? "bg-red-500 hover:bg-red-800 text-white w-full"
+                : "text-white w-full"
+            }
+          >
+            {streaming === "image" ? (
+              <>
+                <CircleX className="inline-block mr-2" /> Remove Image
+              </>
+            ) : (
+              <>
+                <Upload className="inline-block mr-2" /> Upload Image
+              </>
+            )}
+          </Button>
+          <Button className="text-white w-full">
+            <Link href="/check-manual">
+              <SquarePlus className="inline-block mr-2" />
+              Check manual
+            </Link>
+          </Button>
+        </div>
+        <div className="p-3 border border-orange-500 rounded-md">
+          <div className="flex gap-1 items-center text-orange-700">
+            <Info size={20} />
+            <h1 className="text-sm">Note</h1>
+          </div>
+
+          <p className="text-xs text-muted-foreground mt-1">
+            Jika fitur deteksi nutrisi makanan tidak akurat dengan porsi yang
+            Anda inginkan, sebaiknya gunakan fitur check manual untuk memeriksa
+            porsi nutrisi makanan Anda.
+          </p>
+        </div>
       </div>
 
       {/* Video Handler */}

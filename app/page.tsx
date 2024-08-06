@@ -5,7 +5,8 @@ import CardFoodHome from "@/components/card-food-home";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
-import { Info, Salad } from "lucide-react";
+import { Info, MessageSquareQuote, Salad } from "lucide-react";
+import Feedback from "@/components/feedback";
 
 export default async function Home() {
   return (
@@ -53,7 +54,7 @@ export default async function Home() {
                 Information
               </h1>
             </div>
-            <p className="text-sm mt-2">
+            <p className="text-sm mt-2 text-justify">
               Aplikasi NutrixSense adalah aplikasi berbasis web yang bertujuan
               untuk menghitung kalori dan nutrisi harian di Indonesia
               menggunakan deteksi objek dari model YOLOv8. Aplikasi ini juga
@@ -61,6 +62,18 @@ export default async function Home() {
               secara manual. Saat ini, NutrixSense hanya dapat mendeteksi 10
               jenis makanan.
             </p>
+          </div>
+
+          <div className="mt-10">
+            <div className="border-b">
+              <h1 className="font-bold text-2xl flex items-center gap-1">
+                <MessageSquareQuote />
+                Feedback
+              </h1>
+            </div>
+            <div className="mt-2">
+              <Feedback />
+            </div>
           </div>
 
           <Footer />

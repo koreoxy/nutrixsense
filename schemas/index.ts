@@ -94,3 +94,7 @@ export const FoodSchema = z.object({
   kalium: z.number().optional(),
   image_path: z.string().url(), // Ensure the string is a valid URL if it is an image URL
 });
+
+export const addFeedbackSchema = z.object({
+  description: z.string(),
+});

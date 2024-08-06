@@ -114,3 +114,8 @@ model SaveFood{
   userId              String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model FeedBack {
+  id                  String @id @default(uuid())
+  description         String
+}

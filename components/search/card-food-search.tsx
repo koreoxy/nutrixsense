@@ -63,7 +63,7 @@ const CardFoodSearch = async ({
                 objectFit: "cover",
               }}
               alt="food image"
-              className="rounded-t-md"
+              className="rounded-t-md bg-white"
             />
 
             <div className="absolute top-[8px] left-[8px] bg-background p-1 rounded-lg text-sm">
@@ -73,14 +73,14 @@ const CardFoodSearch = async ({
               </p>
             </div>
 
-            <div className="bg-background w-full h-[100px] p-2 rounded-b-md border">
-              <h1 className="font-bold">{food.name}</h1>
-              <h2 className="text-sm">
-                {food.portion ? portionMap[food.portion] : "N/A"}
+            <div className="bg-background w-full h-[8rem] p-2 rounded-b-md border">
+              <h1 className="font-bold text-sm">{food.name}</h1>
+              <h2 className="text-sm mt-2">
+                Porsi {food.portion ? portionMap[food.portion] : "N/A"}
               </h2>
               <p className="text-sm text-muted-foreground">
-                {food.description.length > 100
-                  ? food.description.substring(0, 50) + "..."
+                {food.description.length > 35
+                  ? food.description.substring(0, 35) + "..."
                   : food.description}
               </p>
             </div>
