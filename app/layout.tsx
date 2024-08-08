@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "NutrixSense",
   description:
-    "NutrixSense: Aplikasi webstie mendeteksi objek makanan sehari-hari indonesia",
+    "NutrixSense: Aplikasi website mendeteksi objek makanan sehari-hari indonesia",
 };
 
 export default async function RootLayout({

@@ -126,18 +126,24 @@ const Feedback = () => {
           </DrawerDescription>
         </DrawerHeader>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div>
+          <div className="px-5">
             <Textarea
               id="feedback"
               placeholder="Tuliskan feedback anda tentang aplikasi NutrixSense disini!"
               {...form.register("description")}
             />
           </div>
-          <FormError message={error} />
-          <FormSuccess message={success} />
-          <Button type="submit" className="mt-5" disabled={isPending}>
-            Kirim
-          </Button>
+          <div className="px-5">
+            <FormError message={error} />
+            <FormSuccess message={success} />
+            <Button
+              type="submit"
+              className="mt-5 mb-5 w-full"
+              disabled={isPending}
+            >
+              Kirim
+            </Button>
+          </div>
         </form>
       </DrawerContent>
     </Drawer>
