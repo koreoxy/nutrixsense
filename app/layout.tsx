@@ -9,6 +9,7 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  manifest: "/manifest.json",
   title: "NutrixSense",
   description:
     "NutrixSense: Aplikasi website mendeteksi objek makanan sehari-hari indonesia",

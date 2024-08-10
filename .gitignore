@@ -36,3 +36,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 #/public/foods
+
+#PWA
+/public/sw.js
+/public/sw.js.map
+/public/swe-worker-development.js
+/public/workbox-7144475a.js
+/public/workbox-7144475a.js.map
