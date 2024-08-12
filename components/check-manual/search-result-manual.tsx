@@ -43,9 +43,14 @@ interface Food {
 interface SearchResultManualProps {
   query: string;
   results: Food[];
+  isLoading: boolean;
 }
 
-const SearchResultManual = ({ query, results }: SearchResultManualProps) => {
+const SearchResultManual = ({
+  query,
+  results,
+  isLoading,
+}: SearchResultManualProps) => {
   const { addFood } = useFood();
   const { toast } = useToast();
 
@@ -60,13 +65,16 @@ const SearchResultManual = ({ query, results }: SearchResultManualProps) => {
   return (
     <div className="[&::-webkit-scrollbar-thumb]:bg-gray-300 block max-h-[200px] overflow-y-auto sm:max-h-[300px] dark:[&::-webkit-scrollbar-thumb]:bg-slate-500 dark:[&::-webkit-scrollbar-track]:bg-slate-700 [&::-webkit-scrollbar]:w-2 [&::webkit-scrollbar-track]:bg-gray-100">
       {query.length > 0 ? (
-        results.length > 0 ? (
+        isLoading ? (
+          <div className="flex max-h-60 items-center justify-center p-16">
+            <p className="text-gray-600 dark:text-gray-400">Loading....</p>
+          </div>
+        ) : results.length > 0 ? (
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Nama Makanan</TableHead>
                 <TableHead>Porsi</TableHead>
-                <TableHead></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -79,7 +87,7 @@ const SearchResultManual = ({ query, results }: SearchResultManualProps) => {
                   <TableCell>
                     <Button
                       onClick={() => handleAddFood(food)}
-                      className="text-white3"
+                      className="text-white"
                     >
                       Add Food
                     </Button>
@@ -91,7 +99,7 @@ const SearchResultManual = ({ query, results }: SearchResultManualProps) => {
         ) : (
           <div className="flex max-h-60 items-center justify-center p-16">
             <p className="text-gray-600 dark:text-gray-400">
-              Data makanan tidak ada
+              Data makanan tidak ada.
             </p>
           </div>
         )

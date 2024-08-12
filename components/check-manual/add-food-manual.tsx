@@ -46,13 +46,18 @@ const AddFoodManual = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [query, setQuery] = useState<string>("");
   const [results, setResults] = useState<Food[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (query.length > 0) {
+      setIsLoading(true); // Set loading state to true before fetching data
       fetch(`/api/food?search=${query}`)
         .then((response) => response.json())
         .then((data) => setResults(data))
-        .catch((error) => console.error("Error fetching food data:", error));
+        .catch((error) => console.error("Error fetching food data:", error))
+        .finally(() => setIsLoading(false)); // Set loading state to false after fetching data
+    } else {
+      setResults([]);
     }
   }, [query]);
 
@@ -65,19 +70,27 @@ const AddFoodManual = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>
-          <DialogTitle>Tambahkan Makanan Baru</DialogTitle>
+          <DialogTitle className="flex items-center gap-1">
+            <CirclePlus /> Makanan Baru
+          </DialogTitle>
           <DialogDescription>
             Cari makanan yang mau ditambahkan
           </DialogDescription>
           <SearchInputManual setQuery={setQuery} />
         </DialogHeader>
-        <SearchResultManual query={query} results={results} />
+        <SearchResultManual
+          query={query}
+          results={results}
+          isLoading={isLoading}
+        />
       </DialogContent>
     </Dialog>
   ) : (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="text-white">Tambahkan Makanan Baru</Button>
+        <Button>
+          <CirclePlus className="mr-2" /> Makanan Baru
+        </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
@@ -87,7 +100,11 @@ const AddFoodManual = () => {
           </DrawerDescription>
           <SearchInputManual setQuery={setQuery} />
         </DrawerHeader>
-        <SearchResultManual query={query} results={results} />
+        <SearchResultManual
+          query={query}
+          results={results}
+          isLoading={isLoading}
+        />
       </DrawerContent>
     </Drawer>
   );
