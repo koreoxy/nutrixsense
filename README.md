@@ -4,3 +4,14 @@ Aplikasi NutrixSense adalah aplikasi berbasis web yang bertujuan untuk menghitun
 
 ![NIGHT MODE](https://github.com/user-attachments/assets/d5690c4a-f113-46b1-8807-d71dae35fa70)
 ![LIGHT MODE](https://github.com/user-attachments/assets/81427f4d-dc67-4faf-be77-a3b616dfcefc)
+
+
+### TechStack
+- Next.js 14
+- Typescript
+- Tailwindcss
+- Prisma
+- Supabase
+- Next Auth
+- YOLOv8
+- Shadcn Ui
