@@ -22,12 +22,14 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { register } from "@/actions/register";
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 // bukan page atau halaman
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -43,10 +45,16 @@ export const RegisterForm = () => {
     setSuccess("");
 
     startTransition(() => {
-      register(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
-      });
+   register(values).then((data) => {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setSuccess(data.success);
+           setTimeout(() => {
+            router.push("/auth/login");
+          }, 1000);
+        }
+      }); 
     });
   };
 
