@@ -103,9 +103,9 @@ const DetailFoodList = () => {
       <h1 className="font-bold text-2xl">{food?.name}</h1>
       <Separator className="my-2" />
 
-      {food?.imagePath && (
+      {food && (
         <Image
-          src={food.imagePath}
+          src={food.imagePath || "/food-3d/5.png"}
           width={500}
           height={500}
           alt={food.name || "Food image"}

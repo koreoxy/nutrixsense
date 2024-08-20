@@ -37,7 +37,10 @@ const CardFoodSearch = async ({
   currentPage: number;
   portion: Portion;
 }) => {
-  const foods: Food[] = await getAllFood(query, currentPage, portion);
+  const foods = (await getAllFood(query, currentPage, portion)).map((food) => ({
+    ...food,
+    imagePath: food.imagePath || "/food-3d/5.png",
+  }));
 
   if (foods.length === 0) {
     return (

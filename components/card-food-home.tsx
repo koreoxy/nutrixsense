@@ -45,7 +45,7 @@ const CardFoodHome: React.FC = async () => {
               <div className="">
                 <div key={food.id} className="relative">
                   <Image
-                    src={food.imagePath || "/makanan.jpg"}
+                    src={food.imagePath}
                     width={0}
                     height={0}
                     sizes="100vw"
