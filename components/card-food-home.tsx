@@ -26,7 +26,10 @@ type Food = {
 };
 
 const CardFoodHome: React.FC = async () => {
-  const foods: Food[] = await getNewestFoods();
+  const foods: Food[] = (await getNewestFoods()).map((food) => ({
+    ...food,
+    imagePath: food.imagePath || "/food-3d/5.png",
+  }));
 
   return (
     <Carousel
@@ -42,7 +45,7 @@ const CardFoodHome: React.FC = async () => {
               <div className="">
                 <div key={food.id} className="relative">
                   <Image
-                    src={food.imagePath}
+                    src={food.imagePath || "/makanan.jpg"}
                     width={0}
                     height={0}
                     sizes="100vw"

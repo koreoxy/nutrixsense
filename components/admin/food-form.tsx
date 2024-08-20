@@ -33,7 +33,7 @@ export function FoodForm({ food }: { food?: Food | null }) {
   );
 
   return (
-    <form className="space-y-6" action={formAction}>
+    <form className="space-y-6 mt-5" action={formAction}>
       {/* NAMA MAKANAN */}
       <div className="space-y-2">
         <Label htmlFor="name">Nama Makanan</Label>
@@ -442,8 +442,8 @@ export function FoodForm({ food }: { food?: Food | null }) {
       {/* IMAGE */}
       <div className="space-y-2">
         <Label htmlFor="image">Image</Label>
-        <Input type="file" id="image" name="image" required={food == null} />
-        {food != null && (
+        <Input type="file" id="image" name="image" />
+        {food != null && food.imagePath && (
           <Image
             src={food.imagePath}
             height="200"
