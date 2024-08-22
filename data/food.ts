@@ -3,6 +3,35 @@ import { Portion } from "@prisma/client";
 
 const ITEMS_PER_PAGE = 6;
 
+export const getAllFoodAdmin = async (query: string, page: number) => {
+  const foods = await db.food.findMany({
+    where: {
+      AND: [
+        {
+          OR: [
+            {
+              name: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
+      ],
+    },
+    skip: (page - 1) * ITEMS_PER_PAGE,
+    take: ITEMS_PER_PAGE,
+  });
+
+  return foods;
+};
+
 export const getAllFood = async (
   query: string,
   currentPage: number,
