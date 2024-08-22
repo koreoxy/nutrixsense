@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { addFood, updateFood } from "@/actions/admin/foods";
 import { useFormState, useFormStatus } from "react-dom";
-import { Food } from "@prisma/client";
+import { Category, Food } from "@prisma/client";
 import Image from "next/image";
 import {
   Select,
@@ -31,6 +31,10 @@ export function FoodForm({ food }: { food?: Food | null }) {
   const [selectedPortion, setSelectedPortion] = useState<Portion | undefined>(
     food?.portion as Portion | undefined
   );
+
+  const [selectedCategory, setSelectedCategory] = useState<
+    Category | undefined
+  >(food?.category as Category | undefined);
 
   return (
     <form className="space-y-6 mt-5" action={formAction}>
@@ -79,23 +83,34 @@ export function FoodForm({ food }: { food?: Food | null }) {
         </Select>
       </div>
 
-      {/* DESKRIPSI */}
+      {/* KATEGORI */}
       <div className="space-y-2">
-        <Label htmlFor="description">Deskripsi</Label>
-        <Textarea
-          id="description"
-          name="description"
-          defaultValue={food?.description || ""}
-        />
-        <div>
-          <p
-            aria-live="polite"
-            aria-atomic="true"
-            className="text-sm text-red-500 mt-2"
-          >
-            {state?.error?.description}
-          </p>
-        </div>
+        <Label htmlFor="category">Kategori</Label>
+        <Select
+          name="category"
+          value={selectedCategory}
+          onValueChange={(value) => setSelectedCategory(value as Category)}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Pilih kategori" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Category</SelectLabel>
+              {Object.entries(Category).map(([key, value]) => {
+                const formattedKey = key
+                  .replace(/_/g, " ")
+                  .toLowerCase()
+                  .replace(/^\w/, (c) => c.toUpperCase());
+                return (
+                  <SelectItem key={key} value={value}>
+                    {formattedKey}
+                  </SelectItem>
+                );
+              })}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* KALORI DAN ENERGI */}
@@ -439,6 +454,25 @@ export function FoodForm({ food }: { food?: Food | null }) {
         </div>
       </div>
 
+      {/* DESKRIPSI */}
+      <div className="space-y-2">
+        <Label htmlFor="description">Deskripsi</Label>
+        <Textarea
+          id="description"
+          name="description"
+          defaultValue={food?.description || ""}
+        />
+        <div>
+          <p
+            aria-live="polite"
+            aria-atomic="true"
+            className="text-sm text-red-500 mt-2"
+          >
+            {state?.error?.description}
+          </p>
+        </div>
+      </div>
+
       {/* IMAGE */}
       <div className="space-y-2">
         <Label htmlFor="image">Image</Label>
@@ -462,8 +496,8 @@ export function FoodForm({ food }: { food?: Food | null }) {
         </div>
       </div>
 
-      <Button disabled={pending} className="w-full">
-        {pending ? "Saving..." : "Save"}
+      <Button type="submit" className="w-full" disabled={pending}>
+        {pending ? "Loading..." : food == null ? "Tambahkan" : "Update"}
       </Button>
     </form>
   );

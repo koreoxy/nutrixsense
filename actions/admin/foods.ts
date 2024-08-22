@@ -5,7 +5,7 @@ import fs from "fs/promises";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
-import { Portion } from "@prisma/client";
+import { Category, Portion } from "@prisma/client";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
 const imageSchema = fileSchema
@@ -20,6 +20,7 @@ const addSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   portion: z.nativeEnum(Portion),
+  category: z.nativeEnum(Category),
   calories: z.coerce.number().int().min(1),
   protein: z.coerce.number().positive().min(0),
   fat: z.coerce.number().positive().min(0),
@@ -72,6 +73,7 @@ export const addFood = async (prevState: unknown, formData: FormData) => {
         name: data.name,
         description: data.description,
         portion: data.portion as Portion,
+        category: data.category as Category,
         calories: data.calories,
         protein: data.protein,
         fat: data.fat,
@@ -136,6 +138,7 @@ export const updateFood = async (
         name: data.name,
         description: data.description,
         portion: data.portion as Portion,
+        category: data.category as Category,
         calories: data.calories,
         protein: data.protein,
         fat: data.fat,
