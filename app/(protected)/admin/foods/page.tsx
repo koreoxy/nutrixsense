@@ -1,6 +1,6 @@
 import Pagination from "@/components/pagination";
 import FoodTable from "@/components/admin/foods-table";
-import SearchInput from "@/components/search/search-input";
+import SearchInputAdmin from "@/components/admin/search-input-admin";
 import { getAllFoodAdmin, getAllFoodPages } from "@/data/food";
 import { Portion } from "@prisma/client";
 import { Button } from "@/components/ui/button";
@@ -50,7 +50,7 @@ export default async function SearchPage({
           <Link href="/admin/foods/new">Add Foods</Link>
         </Button>
       </div>
-      <SearchInput initialQuery={query} initialPortion={portion} />
+      <SearchInputAdmin initialQuery={query} initialPortion={portion} />
 
       <div className="mt-5">
         <FoodTable

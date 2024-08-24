@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Portion } from "@prisma/client";
+import { Category, Portion } from "@prisma/client";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -35,7 +35,8 @@ export const getAllFoodAdmin = async (query: string, page: number) => {
 export const getAllFood = async (
   query: string,
   currentPage: number,
-  portion?: string
+  portion?: string,
+  category?: Category
 ) => {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -72,7 +73,11 @@ export const getAllFood = async (
   });
 };
 
-export const getAllFoodPages = async (query: string, portion?: string) => {
+export const getAllFoodPages = async (
+  query: string,
+  portion?: string,
+  category?: Category
+) => {
   const totalItems = await db.food.count({
     where: {
       AND: [
@@ -96,6 +101,13 @@ export const getAllFoodPages = async (query: string, portion?: string) => {
           ? {
               portion: {
                 equals: portion as Portion,
+              },
+            }
+          : {},
+        category
+          ? {
+              category: {
+                equals: category as Category,
               },
             }
           : {},
