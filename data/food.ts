@@ -159,8 +159,27 @@ export const getNewestFoods = async () => {
       fat: true,
       carbohydrates: true,
       imagePath: true,
+      category: true,
     },
     orderBy: { name: "desc" },
+    take: 6,
+  });
+};
+
+export const getOldestFoods = async () => {
+  return db.food.findMany({
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      calories: true,
+      protein: true,
+      fat: true,
+      carbohydrates: true,
+      imagePath: true,
+      category: true,
+    },
+    orderBy: { createdAt: "asc" },
     take: 6,
   });
 };
