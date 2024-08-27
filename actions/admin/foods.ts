@@ -5,7 +5,7 @@ import fs from "fs/promises";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
-import { Portion } from "@prisma/client";
+import { Category, Portion } from "@prisma/client";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
 const imageSchema = fileSchema
@@ -13,13 +13,14 @@ const imageSchema = fileSchema
     message: "Only images are allowed",
   })
   .refine((file) => file.size < 4000000, {
-    message: "Image must less than 4MB",
+    message: "Image must be less than 4MB",
   });
 
 const addSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   portion: z.nativeEnum(Portion),
+  category: z.nativeEnum(Category),
   calories: z.coerce.number().int().min(1),
   protein: z.coerce.number().positive().min(0),
   fat: z.coerce.number().positive().min(0),
@@ -35,7 +36,7 @@ const addSchema = z.object({
   gula: z.coerce.number().nonnegative().optional(),
   sodium: z.coerce.number().int().min(0).optional(),
   kalium: z.coerce.number().int().min(0).optional(),
-  image: imageSchema,
+  image: imageSchema.optional(),
 });
 
 const editSchema = addSchema.extend({
@@ -56,12 +57,15 @@ export const addFood = async (prevState: unknown, formData: FormData) => {
 
   const data = validatedFields.data;
 
-  await fs.mkdir("public/foods", { recursive: true });
-  const imagePath = `/foods/${crypto.randomUUID()}-${data.image.name}`;
-  await fs.writeFile(
-    `public${imagePath}`,
-    Buffer.from(await data.image.arrayBuffer())
-  );
+  let imagePath: string | undefined;
+  if (data.image && data.image.size > 0) {
+    await fs.mkdir("public/foods", { recursive: true });
+    imagePath = `/foods/${crypto.randomUUID()}-${data.image.name}`;
+    await fs.writeFile(
+      `public${imagePath}`,
+      Buffer.from(await data.image.arrayBuffer())
+    );
+  }
 
   try {
     await db.food.create({
@@ -69,6 +73,7 @@ export const addFood = async (prevState: unknown, formData: FormData) => {
         name: data.name,
         description: data.description,
         portion: data.portion as Portion,
+        category: data.category as Category,
         calories: data.calories,
         protein: data.protein,
         fat: data.fat,
@@ -84,7 +89,7 @@ export const addFood = async (prevState: unknown, formData: FormData) => {
         gula: data.gula,
         sodium: data.sodium,
         kalium: data.kalium,
-        imagePath,
+        imagePath: imagePath || null,
       },
     });
   } catch (error) {
@@ -117,7 +122,7 @@ export const updateFood = async (
   if (food == null) return notFound();
 
   let imagePath = food.imagePath;
-  if (data.image != null && data.image.size > 0) {
+  if (data.image && data.image.size > 0) {
     await fs.unlink(`public${food.imagePath}`);
     imagePath = `/foods/${crypto.randomUUID()}-${data.image.name}`;
     await fs.writeFile(
@@ -133,6 +138,7 @@ export const updateFood = async (
         name: data.name,
         description: data.description,
         portion: data.portion as Portion,
+        category: data.category as Category,
         calories: data.calories,
         protein: data.protein,
         fat: data.fat,
@@ -148,11 +154,11 @@ export const updateFood = async (
         gula: data.gula,
         sodium: data.sodium,
         kalium: data.kalium,
-        imagePath,
+        imagePath: imagePath || null,
       },
     });
   } catch (error) {
-    return { message: "Filed to create data" };
+    return { message: "Failed to update data" };
   }
 
   revalidatePath("/admin/foods");

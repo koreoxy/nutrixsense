@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import SelectPorsi from "@/components/foods/select-porsi";
 import { useToast } from "@/components/ui/use-toast";
-import { Portion } from "@prisma/client";
+import { Category, Portion } from "@prisma/client";
 
 type Food = {
   id: string | null;
@@ -31,6 +31,7 @@ type Food = {
   sodium: number | null;
   kalium: number | null;
   imagePath: string;
+  category: Category;
 };
 
 const DetailFoodList = () => {
@@ -101,11 +102,17 @@ const DetailFoodList = () => {
   return (
     <div className="flex flex-col p-4">
       <h1 className="font-bold text-2xl">{food?.name}</h1>
+      <h2 className="text-sm text-muted-foreground">
+        {food?.category
+          .toLowerCase()
+          .replace(/_/g, " ")
+          .replace(/^\w/, (c) => c.toUpperCase())}
+      </h2>
       <Separator className="my-2" />
 
-      {food?.imagePath && (
+      {food && (
         <Image
-          src={food.imagePath}
+          src={food.imagePath || "/food-3d/5.png"}
           width={500}
           height={500}
           alt={food.name || "Food image"}

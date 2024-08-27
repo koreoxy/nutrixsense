@@ -72,6 +72,7 @@ model Food {
   protein             Float?
   fat                 Float?
   carbohydrates       Float?
+  category            Category @default(LAINNYA)
   portion             Portion?
   berat               String?
   energiKj            Float?
@@ -84,9 +85,29 @@ model Food {
   gula                Float?
   sodium              Int?
   kalium              Int?
-  imagePath           String
+  imagePath           String?
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
+}
+
+enum Category {
+  LAINNYA
+  BIJI_BIJIAN
+  BUAH
+  DAGING
+  IKAN_DAN_SEAFOOD
+  KACANG_KACANGAN
+  KEJU_DAN_SUSU
+  MAKANAN_CEPAT_SAJI
+  MAKANAN_PENUTUP
+  MINUMAN
+  NASI_DAN_MIE
+  ROTI_DAN_SEREAL
+  SALAD
+  SAUS_DAN_BUMBU
+  SAYURAN
+  SUP
+  TELUR
 }
 
 enum Portion {

@@ -7,13 +7,15 @@ import Link from "next/link";
 import { Footer } from "@/components/footer";
 import { Info, MessageSquareQuote, Salad } from "lucide-react";
 import Feedback from "@/components/feedback";
+import PwaInstallPrompt from "@/components/pwa-install-prompt";
+import ButtonInstallPwa from "@/components/button-install-pwa";
 
 export default async function Home() {
   return (
     <>
       <Navbar title="Home" />
       <div className="flex-1 items-start overflow-y-auto overflow-x-hidden flex justify-center mb-16 bg-white dark:bg-background">
-        <div className="p-4 flex flex-col w-full ">
+        <div className="p-4 flex flex-col w-full">
           <div className="relative w-full">
             <h1 className="text-4xl font-bold z-[1] absolute text-balance text-shadow">
               Lacak Gizi Makananmu dengan Deteksi Gambar!
@@ -27,9 +29,14 @@ export default async function Home() {
               className="absolute z-0 top-[20px] left-[53px] scale-x-[-1] opacity-40"
             />
           </div>
-          <Link href="/image-detect" className="mt-44">
-            <Button variant="outline">let&apos;s try</Button>
-          </Link>
+          <div className="flex mt-44 items-center gap-2 z-50">
+            <Link href="/image-detect" className="">
+              <Button className="dark:text-white">let&apos;s try</Button>
+            </Link>
+            <div>
+              <ButtonInstallPwa />
+            </div>
+          </div>
 
           <div className="mt-10">
             <div className="flex justify-between items-center border-b">
@@ -81,6 +88,7 @@ export default async function Home() {
       </div>
 
       <MenuBar />
+      <PwaInstallPrompt />
     </>
   );
 }
