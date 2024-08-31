@@ -56,3 +56,19 @@ export const getUserById = async (id: string) => {
     return null;
   }
 };
+
+export const getUsers = async () => {
+  try {
+    const users = await db.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+      orderBy: { name: "asc" },
+    });
+    return users;
+  } catch (error) {
+    throw new Error("Failed to fetch foods data");
+  }
+};

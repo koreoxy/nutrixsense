@@ -130,6 +130,7 @@ export const getFoods = async () => {
         protein: true,
         fat: true,
         carbohydrates: true,
+        category: true,
       },
       orderBy: { name: "asc" },
     });
