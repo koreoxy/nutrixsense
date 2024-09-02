@@ -33,6 +33,9 @@ const SelectPorsi: React.FC<SelectPorsiProps> = ({ portion, onChange }) => {
           <SelectItem value={Portion.SATU_BUAH}>1 buah</SelectItem>
           <SelectItem value={Portion.SATU_PORSI}>1 porsi</SelectItem>
           <SelectItem value={Portion.SATU_MANGKOK}>1 mangkok</SelectItem>
+          <SelectItem value={Portion.SATU_SEDANG}>1 sedang</SelectItem>
+          <SelectItem value={Portion.SATU_KECIL}>1 kecil</SelectItem>
+          <SelectItem value={Portion.SATU_BUNGKUS}>1 bungkus</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

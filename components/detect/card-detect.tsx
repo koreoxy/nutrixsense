@@ -34,9 +34,9 @@ const CardDetect: React.FC<CardDetectProps> = ({ name, totalClass }) => {
     "Telur Rebus": `${totalClass} Sedang`,
     "Tumis Kangkung": `${totalClass} Mangkuk`,
     "Nasi Putih": `${totalClass} Porsi`,
-    Pisang: `${totalClass} Besar`,
-    Sambal: `${totalClass} Mangkuk`,
-    "Indomie Goreng": `${totalClass} Porsi`,
+    Pisang: `${totalClass} Sedang`,
+    Sambal: `${totalClass} Sdm`,
+    "Indomie Goreng": `${totalClass} Bungkus`,
   };
 
   const { data, error } = useSWR<Food[]>("/api/food", fetcher);

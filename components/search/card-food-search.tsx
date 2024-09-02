@@ -11,19 +11,10 @@ const portionMap: { [key in Portion | "all"]: string } = {
   [Portion.SATU_BUAH]: "1 buah",
   [Portion.SATU_PORSI]: "1 porsi",
   [Portion.SATU_MANGKOK]: "1 mangkok",
+  [Portion.SATU_SEDANG]: "1 Sedang",
+  [Portion.SATU_KECIL]: "1 kecil",
+  [Portion.SATU_BUNGKUS]: "1 bungkus",
   all: "All",
-};
-
-type Food = {
-  id: string;
-  name: string;
-  description: string;
-  calories: number | null;
-  protein: number | null;
-  fat: number | null;
-  carbohydrates: number | null;
-  imagePath: string;
-  portion: Portion | null;
 };
 
 const CardFoodSearch = async ({

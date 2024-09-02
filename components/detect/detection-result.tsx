@@ -47,9 +47,9 @@ const portionFood: PortionFood = {
   "Telur Rebus": "Sedang",
   "Tumis Kangkung": "Mangkuk",
   "Nasi Putih": "Porsi",
-  Pisang: "Besar",
-  Sambal: "Porsi",
-  "Indomie Goreng": "Porsi",
+  Pisang: "Sedang",
+  Sambal: "Sdm",
+  "Indomie Goreng": "Bungkus",
 };
 
 const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
