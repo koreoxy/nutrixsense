@@ -14,6 +14,7 @@ const portionMap: { [key in Portion | "all"]: string } = {
   [Portion.SATU_SEDANG]: "1 Sedang",
   [Portion.SATU_KECIL]: "1 kecil",
   [Portion.SATU_BUNGKUS]: "1 bungkus",
+  [Portion.SATU_GELAS]: "1 Gelas",
   all: "All",
 };
 

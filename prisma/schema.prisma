@@ -121,6 +121,7 @@ enum Portion {
   SATU_SEDANG
   SATU_KECIL
   SATU_BUNGKUS
+  SATU_GELAS
 }
 
 

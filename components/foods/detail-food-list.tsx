@@ -44,6 +44,7 @@ const portionMap: { [key in Portion | "all"]: string } = {
   [Portion.SATU_SEDANG]: "1 Sedang",
   [Portion.SATU_KECIL]: "1 kecil",
   [Portion.SATU_BUNGKUS]: "1 bungkus",
+  [Portion.SATU_GELAS]: "1 Gelas",
   all: "All",
 };
 
@@ -117,7 +118,7 @@ const DetailFoodList = () => {
       <h1 className="font-bold text-2xl">{food?.name}</h1>
       <div className="flex gap-2 text-sm text-muted-foreground">
         <h1>{food?.portion ? portionMap[food.portion] : "N/A"}</h1>
-        {food?.berat && <h1>- ({food.berat} g)</h1>}
+        {food?.berat && <h1>- ({food.berat})</h1>}
       </div>
       <h2 className="text-sm text-muted-foreground">
         {food?.category
