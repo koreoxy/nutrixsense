@@ -43,9 +43,11 @@ const InformasiGizi = ({ food }: { food: Food }) => {
     <div className="border p-2">
       <div className="flex justify-between">
         <h1 className="font-bold">Ukuran Porsi</h1>
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-1 items-end">
           <h1>{food?.portion ? portionMap[food.portion] : "N/A"}</h1>
-          {food?.berat && <h1>({food.berat})</h1>}
+          {food?.berat && (
+            <h1 className="text-muted-foreground text-xs">({food.berat})</h1>
+          )}
         </div>
       </div>
 
