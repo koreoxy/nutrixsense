@@ -34,6 +34,20 @@ type Food = {
   category: Category;
 };
 
+const portionMap: { [key in Portion | "all"]: string } = {
+  [Portion.SATU_BESAR]: "1 Besar",
+  [Portion.SATU_SDM]: "1 sdm",
+  [Portion.SERATUS_GRAM]: "100 gram",
+  [Portion.SATU_BUAH]: "1 buah",
+  [Portion.SATU_PORSI]: "1 porsi",
+  [Portion.SATU_MANGKOK]: "1 mangkok",
+  [Portion.SATU_SEDANG]: "1 Sedang",
+  [Portion.SATU_KECIL]: "1 kecil",
+  [Portion.SATU_BUNGKUS]: "1 bungkus",
+  [Portion.SATU_GELAS]: "1 Gelas",
+  all: "All",
+};
+
 const DetailFoodList = () => {
   const pathname = usePathname();
   const id = pathname.split("/")[2];
@@ -102,6 +116,10 @@ const DetailFoodList = () => {
   return (
     <div className="flex flex-col p-4">
       <h1 className="font-bold text-2xl">{food?.name}</h1>
+      <div className="flex gap-2 text-sm text-muted-foreground">
+        <h1>{food?.portion ? portionMap[food.portion] : "N/A"}</h1>
+        {food?.berat && <h1>- ({food.berat})</h1>}
+      </div>
       <h2 className="text-sm text-muted-foreground">
         {food?.category
           .toLowerCase()
@@ -113,8 +131,14 @@ const DetailFoodList = () => {
       {food && (
         <Image
           src={food.imagePath || "/food-3d/5.png"}
-          width={500}
-          height={500}
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{
+            width: "500px",
+            height: "250px",
+            objectFit: "cover",
+          }}
           alt={food.name || "Food image"}
           className="rounded-md"
         />

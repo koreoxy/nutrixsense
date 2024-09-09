@@ -1,14 +1,18 @@
 import { Separator } from "@/components/ui/separator";
 import { Portion } from "@prisma/client";
 
-const portionMap: { [key in Portion]: string } = {
+const portionMap: { [key in Portion | "all"]: string } = {
   [Portion.SATU_BESAR]: "1 Besar",
   [Portion.SATU_SDM]: "1 sdm",
   [Portion.SERATUS_GRAM]: "100 gram",
   [Portion.SATU_BUAH]: "1 buah",
   [Portion.SATU_PORSI]: "1 porsi",
   [Portion.SATU_MANGKOK]: "1 mangkok",
-  [Portion.all]: "All",
+  [Portion.SATU_SEDANG]: "1 Sedang",
+  [Portion.SATU_KECIL]: "1 kecil",
+  [Portion.SATU_BUNGKUS]: "1 bungkus",
+  [Portion.SATU_GELAS]: "1 Gelas",
+  all: "All",
 };
 
 type Food = {
@@ -39,7 +43,12 @@ const InformasiGizi = ({ food }: { food: Food }) => {
     <div className="border p-2">
       <div className="flex justify-between">
         <h1 className="font-bold">Ukuran Porsi</h1>
-        <h2>{food.portion ? portionMap[food.portion] : "N/A"}</h2>
+        <div className="flex flex-col gap-1 items-end">
+          <h1>{food?.portion ? portionMap[food.portion] : "N/A"}</h1>
+          {food?.berat && (
+            <h1 className="text-muted-foreground text-xs">({food.berat})</h1>
+          )}
+        </div>
       </div>
 
       <Separator className="my-1 h-4" />
