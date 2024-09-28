@@ -1,0 +1,23 @@
+description: Ultralytics best model trained on /content/food-indo-4/data.yaml
+author: Ultralytics
+date: '2024-08-23T10:16:02.790223'
+version: 8.2.81
+license: AGPL-3.0 License (https://ultralytics.com/license)
+docs: https://docs.ultralytics.com
+stride: 32
+task: detect
+batch: 1
+imgsz:
+- 640
+- 640
+names:
+  0: indomie_goreng
+  1: nasi_putih
+  2: paha_ayam_goreng
+  3: pisang
+  4: sambal
+  5: tahu_goreng
+  6: telur_dadar
+  7: telur_rebus
+  8: tempe_goreng
+  9: tumis_kangkung
