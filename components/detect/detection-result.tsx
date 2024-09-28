@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardDetect from "@/components/detect/card-detect";
 import ButtonSaveFood from "@/components/detect/button-save-food";
-import { Beef, EggFried, Flame, Wheat } from "lucide-react";
+import { Beef, EggFried, Flame, MessageSquareX, Wheat } from "lucide-react";
 
 interface DetectionResult {
   className: string;
@@ -111,7 +111,7 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
 
   return (
     <section>
-      {detections.length > 0 && (
+      {detections.length > 0 ? (
         <div className="border rounded-b-none rounded-t-xl shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] mt-3">
           <h1 className="font-bold text-xl text-center mt-4">Hasil Deteksi</h1>
           <p className="text-center">{detections.length} Deteksi Objek</p>
@@ -188,6 +188,17 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
               totalNutrients={totalNutrients}
             />
           </div>
+        </div>
+      ) : (
+        <div className="mx-4 p-3 border border-red-500 rounded-md">
+          <div className="flex gap-1 items-center text-red-500">
+            <MessageSquareX size={20} />
+            <h1 className="text-sm">Object Detect Not found</h1>
+          </div>
+
+          <p className="text-xs text-muted-foreground mt-1">
+            Tidak Ada Objek yang di deteksi Upload Image Baru
+          </p>
         </div>
       )}
     </section>
