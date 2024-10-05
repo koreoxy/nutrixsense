@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
       fat,
       carbohydrates,
       userId,
+      createdAt,
     } = await request.json();
 
     // Cek apakah nama makanan sudah ada di database
@@ -44,6 +45,7 @@ export async function POST(request: NextRequest) {
         fat,
         carbohydrates,
         userId,
+        createdAt,
       },
     });
 

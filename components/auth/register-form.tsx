@@ -45,16 +45,16 @@ export const RegisterForm = () => {
     setSuccess("");
 
     startTransition(() => {
-   register(values).then((data) => {
+      register(values).then((data) => {
         if (data.error) {
           setError(data.error);
         } else {
           setSuccess(data.success);
-           setTimeout(() => {
+          setTimeout(() => {
             router.push("/auth/login");
           }, 1000);
         }
-      }); 
+      });
     });
   };
 

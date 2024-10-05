@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { Beef, EggFried, Flame, Wheat } from "lucide-react";
+import { Beef, EggFried, Flame, Info, Wheat } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface Food {
   id: string;
@@ -13,6 +14,7 @@ interface Food {
   protein: number;
   fat: number;
   carbohydrates: number;
+  createdAt: string;
 }
 
 const portionFood: { [key: string]: string } = {
@@ -88,6 +90,7 @@ const AccountSaveFood = () => {
                 {saveFood.map((food, index) => (
                   <div key={index} className="border my-2 p-4">
                     <h1 className="font-bold">Total Nutrisi Makanan</h1>
+                    <div>{new Date(food.createdAt).toLocaleString()}</div>
                     <ul className="mt-1">
                       {food.classCounts &&
                         Object.entries(food.classCounts).map(
@@ -158,9 +161,25 @@ const AccountSaveFood = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-center font-bold mt-2">
-                Tidak Ada Data makanan yang disimpan
-              </p>
+              <div className="mt-5">
+                <div className="p-3 border border-orange-500 rounded-md mx-5">
+                  <div className="flex gap-1 items-center text-orange-700">
+                    <Info size={20} />
+                    <h1 className="text-sm">Note</h1>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Tidak Ada Data makanan yang disimpan, anda bisa tambahkan
+                    makanan baru
+                  </p>
+                  <Button className="w-full mt-2" variant="secondary">
+                    <Link href="/image-detect">Deteksi Makanan Baru</Link>
+                  </Button>
+                  <Button className="w-full mt-2" variant="secondary">
+                    <Link href="/check-manual">Tambahkan Makanan Baru</Link>
+                  </Button>
+                </div>
+              </div>
             )}
           </div>
         </>
