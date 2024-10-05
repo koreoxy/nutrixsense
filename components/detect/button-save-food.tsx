@@ -82,7 +82,7 @@ const ButtonSaveFood: React.FC<ButtonSaveProps> = ({
         type="submit"
         disabled={loading}
       >
-        {loading ? "Saving..." : "Save Food"}
+        {loading ? "Saving..." : "Simpan Nutrisi Makanan"}
       </Button>
       {error && <p className="text-red-500">{error}</p>}
       {success && <p className="text-green-500">{success}</p>}

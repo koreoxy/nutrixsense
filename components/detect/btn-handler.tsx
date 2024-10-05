@@ -1,6 +1,13 @@
 import React, { useState, useRef, MutableRefObject } from "react";
 import { Button } from "@/components/ui/button";
-import { CircleX, Info, SquarePlus, Upload } from "lucide-react";
+import {
+  Camera,
+  CameraOff,
+  CircleX,
+  Info,
+  SquarePlus,
+  Upload,
+} from "lucide-react";
 import Link from "next/link";
 import { Webcam } from "@/utils/yolov8/webcam";
 
@@ -74,39 +81,78 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
         ref={inputImageRef}
       />
       <div className="flex flex-col gap-2">
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-row gap-2">
+            <Button
+              onClick={() => {
+                // if not streaming
+                if (streaming === null) inputImageRef.current?.click();
+                // closing image streaming
+                else if (streaming === "image") closeImage();
+                else
+                  alert(
+                    `Can't handle more than 1 stream\nCurrently streaming : ${streaming}`
+                  ); // if streaming video or webcam
+              }}
+              className={
+                isImageUploaded
+                  ? "bg-red-500 hover:bg-red-800 text-white w-full"
+                  : "text-white w-full"
+              }
+            >
+              {streaming === "image" ? (
+                <>
+                  <CircleX className="inline-block mr-2" /> Remove Image
+                </>
+              ) : (
+                <>
+                  <Upload className="inline-block mr-2" /> Upload Image
+                </>
+              )}
+            </Button>
+            <Button className="text-white w-full">
+              <Link href="/check-manual">
+                <SquarePlus className="inline-block mr-2" />
+                Check Manual
+              </Link>
+            </Button>
+          </div>
+
           <Button
+            className="text-white"
             onClick={() => {
               // if not streaming
-              if (streaming === null) inputImageRef.current?.click();
-              // closing image streaming
-              else if (streaming === "image") closeImage();
-              else
+              if (streaming === null || streaming === "image") {
+                // closing image streaming
+                if (streaming === "image") closeImage();
+                if (cameraRef.current) {
+                  webcam.open(cameraRef.current); // open webcam
+                  cameraRef.current.style.display = "block"; // show camera
+                  setStreaming("camera"); // set streaming to camera
+                }
+              }
+              // closing video streaming
+              else if (streaming === "camera") {
+                if (cameraRef.current) {
+                  webcam.close(cameraRef.current);
+                  cameraRef.current.style.display = "none";
+                  setStreaming(null);
+                }
+              } else
                 alert(
                   `Can't handle more than 1 stream\nCurrently streaming : ${streaming}`
-                ); // if streaming video or webcam
+                ); // if streaming video
             }}
-            className={
-              isImageUploaded
-                ? "bg-red-500 hover:bg-red-800 text-white w-full"
-                : "text-white w-full"
-            }
           >
-            {streaming === "image" ? (
+            {streaming === "camera" ? (
               <>
-                <CircleX className="inline-block mr-2" /> Remove Image
+                <CameraOff className="inline-block mr-2" /> Close Camera
               </>
             ) : (
               <>
-                <Upload className="inline-block mr-2" /> Upload Image
+                <Camera className="inline-block mr-2" /> Open Camera
               </>
             )}
-          </Button>
-          <Button className="text-white w-full">
-            <Link href="/check-manual">
-              <SquarePlus className="inline-block mr-2" />
-              Check manual
-            </Link>
           </Button>
         </div>
         <div className="p-3 border border-orange-500 rounded-md">
@@ -157,33 +203,6 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
       </button> */}
 
       {/* Webcam Handler */}
-      {/* <button
-        onClick={() => {
-          // if not streaming
-          if (streaming === null || streaming === "image") {
-            // closing image streaming
-            if (streaming === "image") closeImage();
-            if (cameraRef.current) {
-              webcam.open(cameraRef.current); // open webcam
-              cameraRef.current.style.display = "block"; // show camera
-              setStreaming("camera"); // set streaming to camera
-            }
-          }
-          // closing video streaming
-          else if (streaming === "camera") {
-            if (cameraRef.current) {
-              webcam.close(cameraRef.current);
-              cameraRef.current.style.display = "none";
-              setStreaming(null);
-            }
-          } else
-            alert(
-              `Can't handle more than 1 stream\nCurrently streaming : ${streaming}`
-            ); // if streaming video
-        }}
-      >
-        {streaming === "camera" ? "Close" : "Open"} Webcam
-      </button> */}
     </div>
   );
 };
