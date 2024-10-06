@@ -18,24 +18,6 @@ export async function POST(request: NextRequest) {
       createdAt,
     } = await request.json();
 
-    // Cek apakah nama makanan sudah ada di database
-    const existingFood = await prisma.saveFood.findFirst({
-      where: {
-        userId: userId,
-        classCounts: {
-          equals: classCounts,
-        },
-      },
-    });
-
-    if (existingFood) {
-      return NextResponse.json(
-        { error: "Data Nutrisi Makanan telah ada!" },
-        { status: 400 }
-      );
-    }
-
-    // Jika tidak ada, tambahkan makanan baru
     const savedFood = await prisma.saveFood.create({
       data: {
         name: foodName,
