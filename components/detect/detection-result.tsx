@@ -35,26 +35,10 @@ const classNameToFoodName: ClassNameToFoodName = {
   indomie_goreng: "Indomie Goreng",
 };
 
-type PortionFood = {
-  [key: string]: string;
-};
-
-const portionFood: PortionFood = {
-  "Tahu Goreng": "Buah",
-  "Tempe Goreng": "Buah",
-  "Paha Ayam Goreng": "Buah",
-  "Telur Dadar": "Besar",
-  "Telur Rebus": "Sedang",
-  "Tumis Kangkung": "Mangkuk",
-  "Nasi Putih": "Porsi",
-  Pisang: "Sedang",
-  Sambal: "Sdm",
-  "Indomie Goreng": "Bungkus",
-};
-
 const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
   detections,
 }) => {
+  const [foodData, setFoodData] = useState<Food[]>([]);
   const [totalNutrients, setTotalNutrients] = useState({
     calories: 0,
     protein: 0,
@@ -62,36 +46,45 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
     carbohydrates: 0,
   });
 
+  // Fetch food data when the component mounts
   useEffect(() => {
     const fetchFoodData = async () => {
       const response = await fetch("/api/food");
       const foods: Food[] = await response.json();
-      return foods.reduce((acc: Record<string, Food>, food: Food) => {
-        acc[food.name] = food;
-        return acc;
-      }, {});
+      setFoodData(foods);
     };
 
-    const calculateTotalNutrients = async () => {
-      const foodData = await fetchFoodData();
+    fetchFoodData();
+  }, []);
+
+  // Calculate total nutrients based on detected classes and fetched food data
+  useEffect(() => {
+    const calculateTotalNutrients = () => {
       let totals = { calories: 0, protein: 0, fat: 0, carbohydrates: 0 };
 
       detections.forEach((detection) => {
         const foodName = classNameToFoodName[detection.className];
-        const foodItem = foodData[foodName];
+        const foodItem = foodData.find((food) => food.name === foodName);
+
         if (foodItem) {
-          totals.calories += foodItem.calories;
-          totals.protein += foodItem.protein;
-          totals.fat += foodItem.fat;
-          totals.carbohydrates += foodItem.carbohydrates;
+          const classCount = detections.filter(
+            (d) => d.className === detection.className
+          ).length;
+
+          totals.calories += foodItem.calories * classCount;
+          totals.protein += foodItem.protein * classCount;
+          totals.fat += foodItem.fat * classCount;
+          totals.carbohydrates += foodItem.carbohydrates * classCount;
         }
       });
 
       setTotalNutrients(totals);
     };
 
-    calculateTotalNutrients();
-  }, [detections]);
+    if (foodData.length > 0) {
+      calculateTotalNutrients();
+    }
+  }, [detections, foodData]);
 
   const classCounts = detections.reduce((acc, detection) => {
     const foodName = classNameToFoodName[detection.className];
@@ -125,12 +118,6 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
           {/* Tampilkan Total Nutrisi untuk Semua Makanan */}
           <div className="mt-4 border-t pt-4 p-4">
             <h2 className="font-bold text-lg">Total Nutrisi Semua Makanan</h2>
-
-            {Array.from(uniqueDetections).map((foodName, index) => (
-              <p key={index}>
-                {classCounts[foodName]} {portionFood[foodName]} {foodName}
-              </p>
-            ))}
             <div className="flex gap-2 justify-between text-center mt-2">
               <div>
                 <div className="flex items-center">
