@@ -9,6 +9,7 @@ import { Info, MessageSquareQuote, Salad } from "lucide-react";
 import Feedback from "@/components/feedback";
 import PwaInstallPrompt from "@/components/pwa-install-prompt";
 import ButtonInstallPwa from "@/components/button-install-pwa";
+import ClassFoodList from "@/components/classfood-list";
 
 export default async function Home() {
   return (
@@ -52,6 +53,10 @@ export default async function Home() {
             <div className="mt-2">
               <CardFoodHome />
             </div>
+          </div>
+
+          <div className="mt-10">
+            <ClassFoodList />
           </div>
 
           <div className="mt-10">

@@ -18,6 +18,20 @@ import Link from "next/link";
 import { DeleteDropdownItem } from "@/components/admin/delete-food-dropdown";
 import { Food, Portion } from "@prisma/client";
 
+const portionFood: Record<Portion, string> = {
+  all: "Semua",
+  SATU_BESAR: "1 Besar",
+  SATU_SDM: "1 Sdm",
+  SERATUS_GRAM: "100 Gram",
+  SATU_BUAH: "1 Buah",
+  SATU_PORSI: "1 Porsi",
+  SATU_MANGKOK: "1 Mangkok",
+  SATU_SEDANG: "1 Sedang",
+  SATU_KECIL: "1 Kecil",
+  SATU_BUNGKUS: "1 Bungkus",
+  SATU_GELAS: "1 Gelas",
+};
+
 const FoodTable = ({
   foods,
   query,
@@ -38,6 +52,7 @@ const FoodTable = ({
           <TableRow>
             <TableHead className="w-[100px]">No</TableHead>
             <TableHead>Food Name</TableHead>
+            <TableHead>Portion</TableHead>
             <TableHead>Kalori</TableHead>
             <TableHead>Protein</TableHead>
             <TableHead>Lemak</TableHead>
@@ -50,6 +65,9 @@ const FoodTable = ({
             <TableRow key={food.id}>
               <TableCell>{index + 1 + (currentPage - 1) * 6}</TableCell>
               <TableCell>{food.name}</TableCell>
+              <TableCell>
+                {food.portion !== null && portionFood[food.portion as Portion]}
+              </TableCell>
               <TableCell>
                 {food.calories ?? "N/A"}
                 <b className="text-muted-foreground text-sm font-normal">

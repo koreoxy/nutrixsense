@@ -35,7 +35,7 @@ const CardDetect: React.FC<CardDetectProps> = ({ name, totalClass }) => {
     "Tumis Kangkung": `${totalClass} Mangkuk`,
     "Nasi Putih": `${totalClass} Porsi`,
     Pisang: `${totalClass} Sedang`,
-    Sambal: `${totalClass} Sdm`,
+    Sambal: `${totalClass} Sdm (Sendok Makan)`,
     "Indomie Goreng": `${totalClass} Bungkus`,
   };
 
