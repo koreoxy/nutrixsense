@@ -10,10 +10,13 @@ interface Food {
   id: string;
   name: string;
   classCounts: { [key: string]: number };
+  classCountsManual: { [key: string]: number };
   calories: number;
   protein: number;
   fat: number;
   carbohydrates: number;
+  portion: string[];
+  classMakanan: string[];
   createdAt: string;
 }
 
@@ -28,6 +31,19 @@ const portionFood: { [key: string]: string } = {
   Pisang: "Sedang",
   Sambal: "Sdm",
   "Indomie Goreng": "Bungkus",
+};
+
+const porsiCustomName: Record<string, string> = {
+  SATU_BESAR: "1 Besar",
+  SATU_SDM: "1 Sdm",
+  SERATUS_GRAM: "1 Gram",
+  SATU_BUAH: "1 Buah",
+  SATU_PORSI: "1 Porsi",
+  SATU_MANGKOK: "1 Mangkok",
+  SATU_SEDANG: "1 Sedang",
+  SATU_KECIL: "1 Kecil",
+  SATU_BUNGKUS: "1 Bungkus",
+  SATU_GELAS: "1 Gelas",
 };
 
 const AccountSaveFood = () => {
@@ -96,14 +112,26 @@ const AccountSaveFood = () => {
                     <div>{new Date(food.createdAt).toLocaleString()}</div>
                     <ul className="mt-1">
                       {food.classCounts &&
-                        Object.entries(food.classCounts).map(
-                          ([foodName, count]: [string, number], idx) => (
-                            <li key={idx}>
-                              {foodName} {count} {portionFood[foodName] || ""}
-                            </li>
+                      Object.entries(food.classCounts).length > 0
+                        ? Object.entries(food.classCounts).map(
+                            ([foodName, count]: [string, number], idx) => (
+                              <li key={idx}>
+                                {foodName} {count}{" "}
+                                {portionFood[foodName]
+                                  ? portionFood[foodName]
+                                  : `${foodName} ${food.portion[idx]}`}
+                              </li>
+                            )
                           )
-                        )}
+                        : food.classMakanan.map((classFood, idx) => (
+                            <li key={idx}>
+                              {classFood}{" "}
+                              {porsiCustomName[food.portion[idx]] ||
+                                "Tidak ada porsi"}
+                            </li>
+                          ))}
                     </ul>
+
                     <div className="flex flex-row gap-2 justify-between text-center mt-2">
                       <div>
                         <div className="flex items-center">
@@ -124,7 +152,9 @@ const AccountSaveFood = () => {
                           <h1>Prot</h1>
                         </div>
                         <p>
-                          <b className="font-bold text-lg">{food.protein}</b>
+                          <b className="font-bold text-lg">
+                            {food.protein.toFixed(2)}
+                          </b>
                           <b className="text-muted-foreground font-normal">g</b>
                         </p>
                       </div>
@@ -136,7 +166,7 @@ const AccountSaveFood = () => {
                         </div>
                         <p>
                           <b className="font-bold text-lg">
-                            {food.carbohydrates}
+                            {food.carbohydrates.toFixed(2)}
                           </b>
                           <b className="text-muted-foreground font-normal">g</b>
                         </p>
@@ -148,7 +178,9 @@ const AccountSaveFood = () => {
                           <h1>Lemak</h1>
                         </div>
                         <p>
-                          <b className="font-bold text-lg">{food.fat}</b>
+                          <b className="font-bold text-lg">
+                            {food.fat.toFixed(2)}
+                          </b>
                           <b className="text-muted-foreground font-normal">g</b>
                         </p>
                       </div>

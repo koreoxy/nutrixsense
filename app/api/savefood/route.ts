@@ -14,6 +14,8 @@ export async function POST(request: NextRequest) {
       protein,
       fat,
       carbohydrates,
+      portion,
+      classMakanan,
       userId,
       createdAt,
     } = await request.json();
@@ -26,6 +28,8 @@ export async function POST(request: NextRequest) {
         protein,
         fat,
         carbohydrates,
+        portion,
+        classMakanan,
         userId,
         createdAt,
       },

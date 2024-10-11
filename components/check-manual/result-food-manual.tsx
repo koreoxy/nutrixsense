@@ -2,17 +2,9 @@ import React, { useState } from "react";
 import { Beef, CircleX, EggFried, Flame, Wheat } from "lucide-react";
 import { useFood } from "@/app/context/FoodContext";
 import { Button } from "@/components/ui/button";
-import ButtonSaveFood from "@/components/detect/button-save-food";
+import ButtonSaveFoodManual from "./button-save-food-manual";
 import { Separator } from "@/components/ui/separator";
-
-enum Portion {
-  SATU_BESAR = "SATU_BESAR",
-  SATU_SDM = "SATU_SDM",
-  SERATUS_GRAM = "SERATUS_GRAM",
-  SATU_BUAH = "SATU_BUAH",
-  SATU_PORSI = "SATU_PORSI",
-  SATU_MANGKOK = "SATU_MANGKOK",
-}
+import { Portion } from "@prisma/client";
 
 const portionMap: { [key in Portion]: string } = {
   [Portion.SATU_BESAR]: "1 Besar",
@@ -21,13 +13,18 @@ const portionMap: { [key in Portion]: string } = {
   [Portion.SATU_BUAH]: "1 buah",
   [Portion.SATU_PORSI]: "1 porsi",
   [Portion.SATU_MANGKOK]: "1 mangkok",
+  [Portion.SATU_SEDANG]: "1 sedang",
+  [Portion.SATU_KECIL]: "1 kecil",
+  [Portion.SATU_BUNGKUS]: "1 bungkus",
+  [Portion.SATU_GELAS]: "1 gelas",
+  [Portion.all]: "semua",
 };
 
 const ResultFoodManual = () => {
   const { foods, removeFood } = useFood();
   const [showTotals, setShowTotals] = useState(false);
 
-  // Function to calculate total nutrients
+  // Fungsi untuk menghitung total nutrisi
   const calculateTotalNutrients = () => {
     return foods.reduce(
       (totals, food) => {
@@ -53,7 +50,7 @@ const ResultFoodManual = () => {
                 <h1 className="font-bold text-lg mb-2">{food.name}</h1>
                 <Button
                   variant="destructive"
-                  onClick={() => removeFood(food.id)} // Attach removeFood function to button
+                  onClick={() => removeFood(food.id)}
                 >
                   <CircleX size={20} />
                 </Button>
@@ -62,6 +59,7 @@ const ResultFoodManual = () => {
                 Porsi {food.portion ? portionMap[food.portion] : "N/A"}
               </h2>
               <div className="grid grid-cols-4 gap-4 text-center">
+                {/* Nutrient Display */}
                 <div>
                   <div className="flex items-center justify-center mb-1">
                     <Flame size={20} className="mr-1" />
@@ -109,6 +107,7 @@ const ResultFoodManual = () => {
               </div>
             </div>
           ))}
+
           <Button
             className="mt-4 w-full text-white"
             onClick={() => setShowTotals(!showTotals)}
@@ -125,13 +124,6 @@ const ResultFoodManual = () => {
                 </p>
               ) : (
                 <>
-                  <ul className="mb-4">
-                    {foods.map((food) => (
-                      <li key={food.id} className="mb-1">
-                        <b>{food.name}</b> - Porsi {portionMap[food.portion]}
-                      </li>
-                    ))}
-                  </ul>
                   <p>
                     Total Kalori : {totalNutrients.calories}
                     <b className="text-muted-foreground font-normal">Kkal</b>
@@ -149,14 +141,11 @@ const ResultFoodManual = () => {
                     <b className="text-muted-foreground font-normal">g</b>
                   </p>
 
-                  {/* Pass the necessary data to ButtonSaveFood */}
-                  <ButtonSaveFood
+                  <ButtonSaveFoodManual
                     foodNames={foods.map((food) => food.name)}
-                    classCounts={foods.reduce((acc, food) => {
-                      acc[food.name] = (acc[food.name] || 0) + 1;
-                      return acc;
-                    }, {} as Record<string, number>)}
+                    classMakanan={foods.map((food) => food.name)}
                     totalNutrients={totalNutrients}
+                    portion={foods.map((food) => food.portion)} // Menambahkan data portion
                   />
                 </>
               )}
