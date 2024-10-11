@@ -133,6 +133,8 @@ model SaveFood{
   protein             Float?
   fat                 Float?
   carbohydrates       Float?
+  portion             Json?
+  classMakanan        Json?
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 

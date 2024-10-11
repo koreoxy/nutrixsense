@@ -1,24 +1,24 @@
-// components/detect/button-save-food.tsx
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 interface ButtonSaveProps {
   foodNames: string[];
-  classCounts: Record<string, number>;
   totalNutrients: {
     calories: number;
     protein: number;
     fat: number;
     carbohydrates: number;
   };
+  portion: string[];
+  classMakanan: string[];
 }
 
-const ButtonSaveFood: React.FC<ButtonSaveProps> = ({
+const ButtonSaveFoodManual: React.FC<ButtonSaveProps> = ({
   foodNames,
-  classCounts,
   totalNutrients,
+  classMakanan,
+  portion,
 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,18 +32,8 @@ const ButtonSaveFood: React.FC<ButtonSaveProps> = ({
     setError(null);
     setSuccess(null);
 
-    // Buat variabel yang berbeda untuk nama makanan yang digabungkan
     const joinedFoodNames = foodNames.join(", ");
-
-    // Hitung total classCounts per makanan
-    const calculatedClassCounts = foodNames.reduce((totals, name) => {
-      if (totals[name]) {
-        totals[name] += classCounts[name];
-      } else {
-        totals[name] = classCounts[name];
-      }
-      return totals;
-    }, {} as Record<string, number>);
+    //const joinedPortions = portion.join(", ");
 
     try {
       const response = await fetch("/api/savefood", {
@@ -52,12 +42,13 @@ const ButtonSaveFood: React.FC<ButtonSaveProps> = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          foodName: joinedFoodNames, // Nama makanan digabungkan dengan koma
-          classCounts: calculatedClassCounts, // Total class untuk setiap makanan
+          foodName: joinedFoodNames,
+          classMakanan: classMakanan,
           calories: totalNutrients.calories,
           protein: totalNutrients.protein,
           fat: totalNutrients.fat,
           carbohydrates: totalNutrients.carbohydrates,
+          portion,
           userId: user?.id,
         }),
       });
@@ -67,10 +58,10 @@ const ButtonSaveFood: React.FC<ButtonSaveProps> = ({
       }
 
       const result = await response.json();
-
+      console.log(result);
       setSuccess("Data makanan berhasil disimpan!");
     } catch (err) {
-      setError("Data Nutrisi Makanan telah ada");
+      setError("Error");
     } finally {
       setLoading(false);
     }
@@ -91,4 +82,4 @@ const ButtonSaveFood: React.FC<ButtonSaveProps> = ({
   );
 };
 
-export default ButtonSaveFood;
+export default ButtonSaveFoodManual;
