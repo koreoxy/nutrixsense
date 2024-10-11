@@ -25,6 +25,9 @@ const portionFood: { [key: string]: string } = {
   "Telur Rebus": "Sedang",
   "Tumis Kangkung": "Mangkuk",
   "Nasi Putih": "Porsi",
+  Pisang: "Sedang",
+  Sambal: "Sdm",
+  "Indomie Goreng": "Bungkus",
 };
 
 const AccountSaveFood = () => {

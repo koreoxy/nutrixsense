@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import CardDetect from "@/components/detect/card-detect";
 import ButtonSaveFood from "@/components/detect/button-save-food";
-import { Beef, EggFried, Flame, MessageSquareX, Wheat } from "lucide-react";
+import { Beef, EggFried, Flame, OctagonX, Wheat } from "lucide-react";
 
 interface DetectionResult {
   className: string;
@@ -19,6 +18,10 @@ type Food = {
 };
 
 type ClassNameToFoodName = {
+  [key: string]: string;
+};
+
+type PortionFood = {
   [key: string]: string;
 };
 
@@ -45,8 +48,13 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
     fat: 0,
     carbohydrates: 0,
   });
+  const [classNutrients, setClassNutrients] = useState<
+    Record<
+      string,
+      { calories: number; protein: number; fat: number; carbohydrates: number }
+    >
+  >({});
 
-  // Fetch food data when the component mounts
   useEffect(() => {
     const fetchFoodData = async () => {
       const response = await fetch("/api/food");
@@ -57,10 +65,18 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
     fetchFoodData();
   }, []);
 
-  // Calculate total nutrients based on detected classes and fetched food data
   useEffect(() => {
     const calculateTotalNutrients = () => {
       let totals = { calories: 0, protein: 0, fat: 0, carbohydrates: 0 };
+      let nutrientsPerClass: Record<
+        string,
+        {
+          calories: number;
+          protein: number;
+          fat: number;
+          carbohydrates: number;
+        }
+      > = {};
 
       detections.forEach((detection) => {
         const foodName = classNameToFoodName[detection.className];
@@ -71,14 +87,24 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
             (d) => d.className === detection.className
           ).length;
 
-          totals.calories += foodItem.calories * classCount;
-          totals.protein += foodItem.protein * classCount;
-          totals.fat += foodItem.fat * classCount;
-          totals.carbohydrates += foodItem.carbohydrates * classCount;
+          const classTotal = {
+            calories: foodItem.calories * classCount,
+            protein: foodItem.protein * classCount,
+            fat: foodItem.fat * classCount,
+            carbohydrates: foodItem.carbohydrates * classCount,
+          };
+
+          totals.calories += classTotal.calories;
+          totals.protein += classTotal.protein;
+          totals.fat += classTotal.fat;
+          totals.carbohydrates += classTotal.carbohydrates;
+
+          nutrientsPerClass[foodName] = classTotal;
         }
       });
 
       setTotalNutrients(totals);
+      setClassNutrients(nutrientsPerClass);
     };
 
     if (foodData.length > 0) {
@@ -102,90 +128,170 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
     return acc;
   }, new Set<string>());
 
+  const portionFood: PortionFood = {
+    "Tahu Goreng": `${classCounts["Tahu Goreng"]} Buah`,
+    "Tempe Goreng": `${classCounts["Tempe Goreng"]} Buah`,
+    "Paha Ayam Goreng": `${classCounts["Paha Ayam Goreng"]} Buah`,
+    "Telur Dadar": `${classCounts["Telur Dadar"]} Besar`,
+    "Telur Rebus": `${classCounts["Telur Rebus"]} Sedang`,
+    "Tumis Kangkung": `${classCounts["Tumis Kangkung"]} Mangkuk`,
+    "Nasi Putih": `${classCounts["Nasi Putih"]} Porsi`,
+    Pisang: `${classCounts["Pisang"]} Sedang`,
+    Sambal: `${classCounts["Sambal"]} Sdm`,
+    "Indomie Goreng": `${classCounts["Indomie Goreng"]} Bungkus`,
+  };
+
   return (
     <section>
       {detections.length > 0 ? (
-        <div className="border rounded-b-none rounded-t-xl shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] mt-3">
+        <div className="border rounded-b-none rounded-t-xl shadow mt-3">
           <h1 className="font-bold text-xl text-center mt-4">Hasil Deteksi</h1>
-          <p className="text-center">{detections.length} Deteksi Objek</p>
+          <p className="text-center">
+            Terdapat {detections.length} Deteksi Objek Makanan
+          </p>
 
           {Array.from(uniqueDetections).map((foodName, index) => (
-            <div key={index}>
-              <CardDetect name={foodName} totalClass={classCounts[foodName]} />
+            <div key={index} className="border p-4 mt-4 shadow">
+              <div className="flex flex-row items-center justify-between">
+                <h2 className="font-bold text-lg">{foodName}</h2>
+                <p>Total {classCounts[foodName]}</p>
+              </div>
+              <p>{portionFood[foodName]}</p> {/* Menampilkan porsi */}
+              {/* Menampilkan total nutrisi untuk setiap makanan */}
+              <div className="flex gap-2 justify-between text-center mt-2">
+                <div>
+                  <div className="flex items-center">
+                    <Flame size={20} />
+                    <h1>Kal</h1>
+                  </div>
+                  <p>
+                    <b className="font-bold text-lg">
+                      {classNutrients[foodName]?.calories || 0}
+                    </b>
+                    <b className="text-muted-foreground font-normal">Kkal</b>
+                  </p>
+                </div>
+                <div>
+                  <div className="flex items-center">
+                    <Beef size={20} />
+                    <h1>Prot</h1>
+                  </div>
+                  <p>
+                    <b className="font-bold text-lg">
+                      {classNutrients[foodName]?.protein.toFixed(2) || 0}
+                    </b>
+                    <b className="text-muted-foreground font-normal">g</b>
+                  </p>
+                </div>
+                <div>
+                  <div className="flex items-center">
+                    <Wheat size={20} />
+                    <h1>Karbo</h1>
+                  </div>
+                  <p>
+                    <b className="font-bold text-lg">
+                      {classNutrients[foodName]?.carbohydrates.toFixed(2) || 0}
+                    </b>
+                    <b className="text-muted-foreground font-normal">g</b>
+                  </p>
+                </div>
+                <div>
+                  <div className="flex items-center">
+                    <EggFried size={20} />
+                    <h1>Lemak</h1>
+                  </div>
+                  <p>
+                    <b className="font-bold text-lg">
+                      {classNutrients[foodName]?.fat.toFixed(2) || 0}
+                    </b>
+                    <b className="text-muted-foreground font-normal">g</b>
+                  </p>
+                </div>
+              </div>
+              {/* Tombol untuk menyimpan nutrisi total per makanan hanya jika satu kelas terdeteksi */}
+              {uniqueDetections.size === 1 && (
+                <ButtonSaveFood
+                  foodNames={[foodName]}
+                  classCounts={classCounts}
+                  totalNutrients={classNutrients[foodName] || totalNutrients}
+                />
+              )}
             </div>
           ))}
 
-          {/* Tampilkan Total Nutrisi untuk Semua Makanan */}
-          <div className="mt-4 border-t pt-4 p-4">
-            <h2 className="font-bold text-lg">Total Nutrisi Semua Makanan</h2>
-            <div className="flex gap-2 justify-between text-center mt-2">
-              <div>
-                <div className="flex items-center">
-                  <Flame size={20} />
-                  <h1>Kal</h1>
+          {/* Jika lebih dari satu kelas terdeteksi, tampilkan total nutrisi semua makanan */}
+          {uniqueDetections.size > 1 && (
+            <div className="mt-4 border-t pt-4 p-4">
+              <h2 className="font-bold text-lg">Total Nutrisi Semua Makanan</h2>
+              <div className="flex gap-2 justify-between text-center mt-2">
+                <div>
+                  <div className="flex items-center">
+                    <Flame size={20} />
+                    <h1>Kal</h1>
+                  </div>
+                  <p>
+                    <b className="font-bold text-lg">
+                      {totalNutrients.calories}
+                    </b>
+                    <b className="text-muted-foreground font-normal">Kkal</b>
+                  </p>
                 </div>
-                <p>
-                  <b className="font-bold text-lg">
-                    {Math.round(totalNutrients.calories)}
-                  </b>
-                  <b className="text-muted-foreground font-normal">Kkal</b>
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center">
-                  <Beef size={20} />
-                  <h1>Prot</h1>
+                <div>
+                  <div className="flex items-center">
+                    <Beef size={20} />
+                    <h1>Prot</h1>
+                  </div>
+                  <p>
+                    <b className="font-bold text-lg">
+                      {totalNutrients.protein.toFixed(2)}
+                    </b>
+                    <b className="text-muted-foreground font-normal">g</b>
+                  </p>
                 </div>
-                <p>
-                  <b className="font-bold text-lg">
-                    {totalNutrients.protein.toFixed(2)}
-                  </b>
-                  <b className="text-muted-foreground font-normal">g</b>
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center">
-                  <Wheat size={20} />
-                  <h1>Karbo</h1>
+                <div>
+                  <div className="flex items-center">
+                    <Wheat size={20} />
+                    <h1>Karbo</h1>
+                  </div>
+                  <p>
+                    <b className="font-bold text-lg">
+                      {totalNutrients.carbohydrates.toFixed(2)}
+                    </b>
+                    <b className="text-muted-foreground font-normal">g</b>
+                  </p>
                 </div>
-                <p>
-                  <b className="font-bold text-lg">
-                    {totalNutrients.carbohydrates.toFixed(2)}
-                  </b>
-                  <b className="text-muted-foreground font-normal">g</b>
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center">
-                  <EggFried size={20} />
-                  <h1>Lemak</h1>
+                <div>
+                  <div className="flex items-center">
+                    <EggFried size={20} />
+                    <h1>Lemak</h1>
+                  </div>
+                  <p>
+                    <b className="font-bold text-lg">
+                      {totalNutrients.fat.toFixed(2)}
+                    </b>
+                    <b className="text-muted-foreground font-normal">g</b>
+                  </p>
                 </div>
-                <p>
-                  <b className="font-bold text-lg">
-                    {totalNutrients.fat.toFixed(2)}
-                  </b>
-                  <b className="text-muted-foreground font-normal">g</b>
-                </p>
               </div>
+              <ButtonSaveFood
+                foodNames={Array.from(uniqueDetections)}
+                classCounts={classCounts}
+                totalNutrients={totalNutrients}
+              />
             </div>
-
-            <ButtonSaveFood
-              foodNames={Array.from(uniqueDetections)}
-              classCounts={classCounts}
-              totalNutrients={totalNutrients}
-            />
-          </div>
+          )}
         </div>
       ) : (
-        <div className="mx-4 p-3 border border-red-500 rounded-md">
-          <div className="flex gap-1 items-center text-red-500">
-            <MessageSquareX size={20} />
-            <h1 className="text-sm">Object Detect Not found</h1>
+        <div className="rounded-b-none rounded-t-xl border mt-3">
+          <h1 className="text-center text-xl font-bold mt-4">Hasil Deteksi</h1>
+          <div className="flex justify-center items-center h-64">
+            <div className="flex flex-col text-center items-center">
+              <OctagonX size={64} />
+              <p className="font-bold p-5">
+                Tidak Ada Objek Makanan yang di deteksi Upload Image Baru
+              </p>
+            </div>
           </div>
-
-          <p className="text-xs text-muted-foreground mt-1">
-            Tidak Ada Objek yang di deteksi Upload Image Baru
-          </p>
         </div>
       )}
     </section>
