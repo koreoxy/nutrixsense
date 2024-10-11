@@ -3,6 +3,7 @@
 import { Beef, EggFried, Flame, Wheat } from "lucide-react";
 import React from "react";
 import useSWR from "swr";
+import ButtonSaveFood from "./button-save-food";
 
 interface CardDetectProps {
   name: string;
@@ -35,7 +36,7 @@ const CardDetect: React.FC<CardDetectProps> = ({ name, totalClass }) => {
     "Tumis Kangkung": `${totalClass} Mangkuk`,
     "Nasi Putih": `${totalClass} Porsi`,
     Pisang: `${totalClass} Sedang`,
-    Sambal: `${totalClass} Sdm (Sendok Makan)`,
+    Sambal: `${totalClass} Sdm`,
     "Indomie Goreng": `${totalClass} Bungkus`,
   };
 
@@ -51,9 +52,9 @@ const CardDetect: React.FC<CardDetectProps> = ({ name, totalClass }) => {
   // Calculate total nutrients
   const totalNutrients = {
     calories: Math.round(foodItem.calories * totalClass),
-    protein: (foodItem.protein * totalClass).toFixed(2),
-    fat: (foodItem.fat * totalClass).toFixed(2),
-    carbohydrates: (foodItem.carbohydrates * totalClass).toFixed(2),
+    protein: Math.round(foodItem.protein * totalClass),
+    fat: Math.round(foodItem.fat * totalClass),
+    carbohydrates: Math.round(foodItem.carbohydrates * totalClass),
   };
 
   const nutrients = [
@@ -66,21 +67,21 @@ const CardDetect: React.FC<CardDetectProps> = ({ name, totalClass }) => {
     },
     {
       label: "Prot",
-      value: totalNutrients.protein,
+      value: totalNutrients.protein.toString(),
       unit: "g",
       image: "/nutrisi/protein.png",
       icon: <Beef size={20} />,
     },
     {
       label: "Karbo",
-      value: totalNutrients.carbohydrates,
+      value: totalNutrients.carbohydrates.toString(),
       unit: "g",
       image: "/nutrisi/carbo.png",
       icon: <Wheat size={20} />,
     },
     {
       label: "Lemak",
-      value: totalNutrients.fat,
+      value: totalNutrients.fat.toString(),
       unit: "g",
       image: "/nutrisi/fat.png",
       icon: <EggFried size={20} />,
@@ -89,7 +90,10 @@ const CardDetect: React.FC<CardDetectProps> = ({ name, totalClass }) => {
 
   return (
     <div className="border border-r-0 border-l-0 mt-4 p-4">
-      <div className="">
+      <div>
+        {totalClass > 1 && (
+          <h2 className="font-bold text-lg">Total Nutrisi Makanan</h2>
+        )}
         <h1 className="font-bold text-lg">
           {foodItem.name} {""}
           {portionFood[foodItem.name]}
@@ -110,6 +114,14 @@ const CardDetect: React.FC<CardDetectProps> = ({ name, totalClass }) => {
             </p>
           </div>
         ))}
+        {/* Show ButtonSaveFood only when there's exactly one class of food */}
+        {totalClass === 1 && (
+          <ButtonSaveFood
+            foodNames={[foodItem.name]}
+            classCounts={{ [foodItem.name]: totalClass }}
+            totalNutrients={totalNutrients}
+          />
+        )}
       </div>
     </div>
   );
