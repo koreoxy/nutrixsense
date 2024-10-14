@@ -71,7 +71,7 @@ const PwaInstallPrompt = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 p-4 bg-background border text-white rounded-lg shadow-lg z-50 w-[400px]">
+    <div className="fixed bottom-4 right-4 p-4 bg-background border dark:text-white rounded-lg shadow-lg z-50 w-[400px]">
       <p className="text-sm">
         Tambahkan aplikasi ini ke layar utama Anda untuk pengalaman yang lebih
         baik.

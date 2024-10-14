@@ -57,7 +57,7 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
 
   useEffect(() => {
     const fetchFoodData = async () => {
-      const response = await fetch("/api/food");
+      const response = await fetch("/api/makanan");
       const foods: Food[] = await response.json();
       setFoodData(foods);
     };
@@ -134,7 +134,7 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
     "Paha Ayam Goreng": `${classCounts["Paha Ayam Goreng"]} Buah`,
     "Telur Dadar": `${classCounts["Telur Dadar"]} Besar`,
     "Telur Rebus": `${classCounts["Telur Rebus"]} Sedang`,
-    "Tumis Kangkung": `${classCounts["Tumis Kangkung"]} Mangkuk`,
+    "Tumis Kangkung": `${classCounts["Tumis Kangkung"]} Mangkok`,
     "Nasi Putih": `${classCounts["Nasi Putih"]} Porsi`,
     Pisang: `${classCounts["Pisang"]} Sedang`,
     Sambal: `${classCounts["Sambal"]} Sdm`,

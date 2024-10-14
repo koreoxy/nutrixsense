@@ -54,7 +54,7 @@ const ButtonInstallPwa = () => {
 
   return (
     <Button
-      className="dark:text-white"
+      className="text-black dark:text-white"
       onClick={handleInstallClick}
       variant="outline"
     >
