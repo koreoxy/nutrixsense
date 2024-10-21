@@ -19,7 +19,7 @@ export default async function Home() {
         <div className="p-4 flex flex-col w-full">
           <div className="relative w-full">
             <h1 className="text-4xl font-bold z-[1] absolute text-balance text-shadow">
-              Lacak Gizi Makananmu dengan Deteksi Gambar!
+              Lacak Nutrisi Makananmu dengan Deteksi Gambar!
             </h1>
 
             <Image

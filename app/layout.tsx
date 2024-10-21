@@ -13,6 +13,17 @@ export const metadata: Metadata = {
   title: "NutrixSense",
   description:
     "NutrixSense: Aplikasi website mendeteksi objek makanan sehari-hari indonesia",
+  keywords: [
+    "Nutrisense",
+    "Food Detection",
+    "Deteksi Makanan",
+    "Aplikasi Mendeteksi Makanan",
+  ],
+  openGraph: {
+    description:
+      "NutrixSense Aplikasi website mendeteksi objek makanan sehari-hari indonesia",
+    images: ["/icons/logo-dark.png"],
+  },
 };
 
 export default async function RootLayout({
