@@ -288,7 +288,7 @@ const DetectionResults: React.FC<{ detections: DetectionResult[] }> = ({
             <div className="flex flex-col text-center items-center">
               <OctagonX size={64} />
               <p className="font-bold p-5">
-                Tidak Ada Objek Makanan yang di deteksi Upload Image Baru
+                No Food Object Detected. Please Upload a New Image.
               </p>
             </div>
           </div>

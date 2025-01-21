@@ -73,7 +73,7 @@ const Feedback = () => {
       <DialogTrigger asChild>
         <Button className="w-full" variant="outline">
           <Send className="mr-1" />
-          Kirim Masukan
+         Send Feedback
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-xl">

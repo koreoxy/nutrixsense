@@ -101,7 +101,7 @@ const AccountSaveFood = () => {
       ) : (
         <>
           <h1 className="text-center font-bold text-lg mt-4">
-            List Nutrisi Makanan
+          Food Nutrition List  
           </h1>
           <div>
             {saveFood.length > 0 ? (

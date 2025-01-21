@@ -15,11 +15,11 @@ export default async function Home() {
   return (
     <>
       <Navbar title="Home" />
-      <div className="flex-1 items-start overflow-y-auto overflow-x-hidden flex justify-center mb-16 bg-white dark:bg-background">
+      <div className="flex-1 items-start overflow-y-auto overflow-x-hidden flex justify-center mb-10 bg-white dark:bg-background">
         <div className="p-4 flex flex-col w-full">
           <div className="relative w-full">
             <h1 className="text-4xl font-bold z-[1] absolute text-balance text-shadow">
-              Lacak Nutrisi Makananmu dengan Deteksi Gambar!
+             Snap Your Meal Track Your Nutrition! 
             </h1>
 
             <Image
@@ -30,7 +30,7 @@ export default async function Home() {
               className="absolute z-0 top-[20px] left-[53px] scale-x-[-1] opacity-40"
             />
           </div>
-          <div className="flex mt-44 items-center gap-2 z-50">
+          <div className="flex mt-36 items-center gap-2 z-50">
             <Link href="/image-detect" className="">
               <Button className="dark:text-white">let&apos;s try</Button>
             </Link>
@@ -67,12 +67,7 @@ export default async function Home() {
               </h1>
             </div>
             <p className="text-sm mt-2 text-justify">
-              Aplikasi NutrixSense adalah aplikasi berbasis web yang bertujuan
-              untuk menghitung kalori dan nutrisi harian di Indonesia
-              menggunakan deteksi objek dari model YOLOv8. Aplikasi ini juga
-              memungkinkan pengguna untuk menghitung kalori dan nutrisi makanan
-              secara manual. Saat ini, NutrixSense hanya dapat mendeteksi 10
-              jenis makanan.
+              The NutrixSense application is a web-based platform designed to calculate daily calories and nutrition in Indonesia using object detection powered by the YOLOv8 model. This application also allows users to manually calculate the calories and nutrition of their meals. Currently, NutrixSense can only detect 10 types of food.            
             </p>
           </div>
 

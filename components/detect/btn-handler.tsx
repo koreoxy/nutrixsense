@@ -162,9 +162,7 @@ const ButtonHandler: React.FC<ButtonHandlerProps> = ({
           </div>
 
           <p className="text-xs text-muted-foreground mt-1">
-            Jika fitur deteksi nutrisi makanan tidak akurat dengan porsi yang
-            Anda inginkan, sebaiknya gunakan fitur check manual untuk memeriksa
-            porsi nutrisi makanan Anda.
+           If the food nutrition detection feature is not accurate for the portion you desire, it is recommended to use the manual check feature to adjust and verify your food portion&apos;s nutrition. 
           </p>
         </div>
       </div>

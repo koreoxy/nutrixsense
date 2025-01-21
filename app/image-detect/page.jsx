@@ -73,7 +73,8 @@ const ImageDetect = () => {
             <>
               <div className="p-4">
                 <div className="text-center mb-2">
-                  <h1 className="font-bold text-lg">📷 Deteksi Makanan Kamu</h1>
+                  <h1 className="font-bold text-lg">📷 Detect Your Food
+                  </h1>
                 </div>
 
                 <div className="content">
