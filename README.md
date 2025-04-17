@@ -1,6 +1,5 @@
 # Nutrixsense
-
-Aplikasi NutrixSense adalah aplikasi berbasis web yang bertujuan untuk menghitung kalori dan nutrisi harian di Indonesia menggunakan deteksi objek dari model YOLOv8. Aplikasi ini juga memungkinkan pengguna untuk menghitung kalori dan nutrisi makanan secara manual. Saat ini, NutrixSense hanya dapat mendeteksi 10 jenis makanan.
+NutrixSense application is a web-based application that aims to calculate daily calories and nutrients in Indonesia using object detection from the YOLOv8 model. This application also allows users to calculate calories and nutrients in food manually. Currently, NutrixSense can only detect 10 types of food.
 
 ## Screenshot App
 
